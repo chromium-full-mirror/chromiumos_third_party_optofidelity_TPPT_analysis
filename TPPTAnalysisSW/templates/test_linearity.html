@@ -1,0 +1,240 @@
+    <div xmlns:py="http://genshi.edgewall.org/">
+    <h3>Linearity results</h3>
+    <table class="datatable test_verdicts">
+        <tr>
+            <th></th>
+            <th>Value</th>
+            <th>Maximum allowed</th>
+            <th>Pass/Fail</th>
+        </tr>
+        <tr>
+            <td>Average of max linearity error</td>
+            <td>${"%.3f mm" % results.linearity_avg_of_max_errors if results.linearity_avg_of_max_errors is not None else "N/A"}</td>
+            <td>${"%.3f mm" % settings.max_avg_of_max_errors if settings.max_avg_of_max_errors is not None else "N/A"}</td>
+            <td class="${'passed' if results.linearity_max_verdict == 'Pass' else 'failed'}">
+            ${results.linearity_max_verdict}</td>
+        </tr>
+        <tr>
+            <td>Average of avg linearity error</td>
+            <td>${"%.3f mm" % results.linearity_avg_of_error_avgs if results.linearity_avg_of_error_avgs is not None else "N/A"}</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>Maximum of max linearity error</td>
+            <td>${"%.3f mm" % results.linearity_max_of_max_errors if results.linearity_max_of_max_errors is not None else "N/A"}</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>Total stdev linearity error</td>
+            <td>${"%.3f mm" % results.linearity_total_stdev_error if results.linearity_total_stdev_error is not None else "N/A"}</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>Total RMS linearity error</td>
+            <td>${"%.3f mm" % results.total_linearity_rms_error if results.total_linearity_rms_error is not None else "N/A"}</td>
+            <td>${"%.3f mm" % settings.max_rms_error if settings.max_rms_error is not None else "N/A"}</td>
+            <td class="${'passed' if results.linearity_rms_verdict == 'Pass' else 'failed'}">
+            ${results.linearity_rms_verdict}</td>
+        </tr>
+    </table>
+
+    <h3>Jitter results</h3>
+    <table class="datatable test_verdicts">
+        <tr>
+            <th></th>
+            <th>Value</th>
+            <th>Maximum allowed</th>
+            <th>Pass/Fail</th>
+        </tr>
+        <tr>
+            <td>Average of max moving jitter error</td>
+            <td>${"%.3f mm" % results.moving_jitter_avg_of_max_errors if results.moving_jitter_avg_of_max_errors is not None else "N/A"}</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>Average of avg moving jitter error</td>
+            <td>${"%.3f mm" % results.moving_jitter_avg_of_error_avgs if results.moving_jitter_avg_of_error_avgs is not None else "N/A"}</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>Maximum of max moving jitter error</td>
+            <td>${"%.3f mm" % results.moving_jitter_max_of_max_errors if results.moving_jitter_max_of_max_errors is not None else "N/A"}</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>Total stdev moving jitter error</td>
+            <td>${"%.3f mm" % results.moving_jitter_total_stdev_error if results.moving_jitter_total_stdev_error is not None else "N/A"}</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+    </table>
+
+    <h3>Offset results</h3>
+    <table class="datatable test_verdicts">
+        <tr>
+            <th></th>
+            <th>Value</th>
+            <th>Maximum allowed</th>
+            <th>Pass/Fail</th>
+        </tr>
+        <tr>
+            <td>Average of max offset error</td>
+            <td>${"%.3f mm" % results.offset_avg_of_max_errors if results.offset_avg_of_max_errors is not None else "N/A"}</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>Average of avg offset error</td>
+            <td>${"%.3f mm" % results.offset_avg_of_error_avgs if results.offset_avg_of_error_avgs is not None else "N/A"}</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>Maximum of max offset error</td>
+            <td>${"%.3f mm" % results.offset_max_of_max_errors if results.offset_max_of_max_errors is not None else "N/A"}</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>Total stdev offset error</td>
+            <td>${"%.3f mm" % results.offset_total_stdev_error if results.offset_total_stdev_error is not None else "N/A"}</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>Total RMS offset error</td>
+            <td>${"%.3f mm" % results.total_offset_rms_error if results.total_offset_rms_error is not None else "N/A"}</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+    </table>
+
+    <h3>Reporting rate results</h3>
+    <table class="datatable test_verdicts">
+        <tr>
+            <th></th>
+            <th>Value</th>
+            <th>Maximum allowed</th>
+            <th>Pass/Fail</th>
+        </tr>
+        <tr>
+            <td>Average of min report rate</td>
+            <td>${"%.3f Hz" % results.avg_of_min_report_rate if results.avg_of_min_report_rate is not None else "N/A"}</td>
+            <td>${"%.3f Hz" % results.report_rate_limit if results.report_rate_limit is not None else "N/A"}</td>
+            <td class="${'passed' if results.report_rate_verdict == 'Pass' else 'failed'}">
+            ${results.report_rate_verdict}</td>
+        </tr>
+        <tr>
+            <td>Average of avg report rate</td>
+            <td>${"%.3f Hz" % results.avg_of_avg_report_rate if results.avg_of_avg_report_rate is not None else "N/A"}</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>Minimum of min report rate</td>
+            <td>${"%.3f Hz" % results.min_of_min_report_rate if results.min_of_min_report_rate is not None else "N/A"}</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+
+        <tr>
+            <td>Total stdev of report rate</td>
+            <td>${"%.3f Hz" % results.total_std_report_rate if results.total_std_report_rate is not None else "N/A"}</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+    </table>
+
+    <h3>Completeness results</h3>
+    <table class="datatable test_verdicts">
+        <tr>
+            <th></th>
+            <th>Value</th>
+            <th>Maximum allowed</th>
+            <th>Pass/Fail</th>
+        </tr>
+        <tr>
+            <td>Ghost fingers detected</td>
+            <td>${results.num_of_ghost_fingers} / ${results.swipe_count}</td>
+            <td>${"%s" % results.max_ghost_fingers}</td>
+            <td class="${'passed' if results.ghost_fingers_verdict == 'Pass' else 'failed'}">
+                ${results.ghost_fingers_verdict}</td>
+        </tr>
+        <tr>
+            <td>Broken lines</td>
+            <td>${results.num_of_broken_lines} / ${results.swipe_count}</td>
+            <td>${"%s" % results.max_broken_lines}</td>
+            <td class="${'passed' if results.broken_lines_verdict == 'Pass' else 'failed'}">
+                ${results.broken_lines_verdict}</td>
+        </tr>
+    </table>
+
+    <h3>Validation results (do not affect test case success)</h3>
+    <table class="datatable test_verdicts">
+        <tr>
+            <th></th>
+            <th>Value</th>
+            <th>Maximum allowed</th>
+            <th>Pass/Fail</th>
+        </tr>
+        <tr>
+            <td>Missing swipe percentage</td>
+            <td>${"%.1f" % results.missing_swipes_percentage} %</td>
+            <td>${"%.1f" % settings.max_missing_swipes} %</td>
+            <td class="${'passed' if results.missing_swipes_verdict == 'Pass' else 'failed'}">
+                ${results.missing_swipes_verdict}</td>
+        </tr>
+    </table>
+
+    <!-- Preview image -->
+
+    <div py:if="'noimages' not in kwargs" class="preview">
+      <a href="${detailed_figure}">
+        <img src="${figure}" width="800" height="600" alt="Swipe preview image"/>
+      </a>
+    </div>
+
+      <!-- Preview table -->
+	<div class="dtable no_print">
+		<div class="dtable_row subplot_selector">
+		    <div class="dtable_header narrow_cell">Toggle:
+            </div><div class="dtable_header narrow_cell subplot_button"><button class="all_lines_button">All</button>
+            </div><div class="dtable_header narrow_cell subplot_button"><button class="failed_lines_button">Failed</button>
+            </div><div class="dtable_header narrow_cell subplot_button"><button class="passed_lines_button">Passed</button></div>
+        </div>
+    </div>
+
+	<div class="dtable subplot_table">
+		<div class="dtable_header_row">
+			<div class="dtable_header narrow_cell">Swipe ID
+            </div><div class="dtable_header narrow_cell">Max Linearity
+            </div><div class="dtable_header narrow_cell">Max Jitter
+            </div><div class="dtable_header narrow_cell">Max Offset
+            </div><div class="dtable_header">Min report rate
+            </div><div class="dtable_header narrow_cell">Line broken
+            </div><div class="dtable_header narrow_cell">Ghost finger
+            </div><div class="dtable_header narrow_cell">Pass/Fail
+            </div><div class="dtable_header no_print">Detailed plot</div>
+		</div>
+		<div py:for="swipe in results.swipes" class="dtable_row plot_header">
+			<div class="dtable_cell narrow_cell">${swipe["id"]}
+            </div><div class="dtable_cell narrow_cell"> ${"%.3f mm" % swipe["max_linearity"] if swipe["max_linearity"] is not None else "N/A"}
+            </div><div class="dtable_cell narrow_cell"> ${"%.3f mm" % swipe["max_jitter"] if swipe["max_jitter"] is not None else "N/A"}
+            </div><div class="dtable_cell narrow_cell"> ${"%.3f mm" % swipe["max_offset"] if swipe["max_offset"] is not None else "N/A"}
+            </div><div class="dtable_cell"> ${"%.3f Hz" % swipe["min_report_rate"] if swipe["min_report_rate"] is not None else "N/A"}
+            </div><div class="dtable_cell narrow_cell"> ${'broken' if results.swipe_additions[swipe["id"]].line_broken else 'not broken'}
+            </div><div class="dtable_cell narrow_cell"> ${'found' if results.swipe_additions[swipe["id"]].ghost_finger_detected else 'not found'}
+            </div><div class="dtable_cell narrow_cell ${'passed' if swipe['verdict']=='Pass' else 'failed'}"> ${swipe["verdict"]}
+            </div><div py:if="not results.swipe_additions[swipe['id']].swipe_empty" class="dtable_cell no_print"><button type="button" class="show_plot">Show/Hide</button>
+            </div><div py:if="not results.swipe_additions[swipe['id']].swipe_empty" class="plot" data-src="${swipe['image_name']}"/>
+		</div>
+
+    </div>
+	</div>
+

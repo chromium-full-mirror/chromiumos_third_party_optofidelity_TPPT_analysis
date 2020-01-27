@@ -1,0 +1,68 @@
+<html xmlns:py="http://genshi.edgewall.org/" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <head>
+    <title>${"%s #%s" % (test_type_name,test_id)}, ${dut['manufacturer']} ${dut['program']}, ${testsession['operator']} ${testsession['starttime']}, test session ID: ${testsession['id']}</title>
+	<script type="text/javascript" src="/static/script/libs/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="/static/script/test_page.js"></script>
+    <py:if test="defined('test_script')">
+        <script type="text/javascript" src="/static/script/${test_script}"></script>
+    </py:if>
+
+    <link rel="shortcut icon" href="/static/img/favicon.ico"/>
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/static/reportstyle.css" />
+    <link rel="stylesheet" type="text/css" href="/static/daddy.css" />
+    <link rel="stylesheet" type="text/css" href="/static/style.css" />
+    <link rel="stylesheet" type="text/css" href="/static/graph.css" />
+    <link rel="stylesheet" type="text/css" media="print" href="/static/reportstyle_print.css" />
+  </head>
+  <body>
+    <div class="report">
+    <div id="Main" class="content" style="display: block; visibility: visible;">
+
+    <!--! Common header: logo, version, back & print buttons -->
+    <div class="no_summary">
+        <a href="/"><img src="/static/img/logo.jpg"/></a>
+        <p class="version">Analysis software version ${version.simple}</p>
+
+    <span class="no_print"><br/>
+        <a href="/testsessions/${testsession['id']}">
+            <button class="btn btn-primary">Back</button>
+        </a>
+    </span>
+
+    <span class="no_print">
+        <a href="/">
+            <button class="btn btn-primary">Analysis Home</button>
+        </a>
+    </span>
+
+    <span py:if="defined('results')" class="no_print">
+        <a href="?refresh=yes">
+        <button py:if="'test_type_name' in results" class="no_print btn btn-primary" id="refresh_button">
+            Refresh
+        </button>
+        </a>
+    </span>
+
+    <button class="no_print btn btn-info" id="print_button">
+        <span class="glyphicon glyphicon-print"></span> Print
+    </button>
+
+    </div>
+
+    <span py:if="defined('results') and 'test_type_name' in results">
+        <h1 class="test_title">${"%s #%s" % (results.test_type_name, test_id)}</h1>
+    </span>
+
+    <span py:if="not defined('results') or 'test_type_name' not in results">
+        <h1 class="test_title">${"%s #%s" % (test_type_name, test_id)}</h1>
+    </span>
+
+    <h2 class="test_title">${dut['manufacturer']} ${dut['program']} ${dut['sample_id']} ${test_item['finger_type']}<span class="no_summary">${testsession['operator']} ${test_item['starttime']}, test session ID:${testsession['id']}</span></h2>
+
+    <!--! Actual content of the report -->
+    <xi:include href="templates/$test_page" />
+
+    </div></div>
+  </body>
+</html>

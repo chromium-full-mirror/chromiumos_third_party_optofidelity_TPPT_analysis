@@ -1,0 +1,183 @@
+<html xmlns:py="http://genshi.edgewall.org/" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <head>
+    <title>Test sessions</title>
+    <link rel="shortcut icon" href="/static/img/favicon.ico"/>
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="/static/reportstyle.css" />
+    <link rel="stylesheet" type="text/css" href="/static/daddy.css" />
+    <link rel="stylesheet" type="text/css" href="/static/style.css" />
+    <link rel="stylesheet" type="text/css" href="/static/mainpage.css" />
+  </head>
+  <body>
+    <div class="report">
+    <div id="Main" class="content">
+    <div><a href="/"><img src="/static/img/logo.jpg"/></a><p class="version">Analysis software version ${version.simple}</p></div>
+    <span class="no_print"><br/><a href="/settings"><button class="btn btn-primary">Settings</button></a></span>
+    <span class="no_print"><a href="/static/AnalysisSoftwareUserGuide.pdf"><button class="btn btn-info">User Guide</button></a></span>
+    <span class="no_print"><a href="/main_page?page=${pagenumber - 1}" py:if="int(pagenumber) > 1"><button class="btn btn-primary">Previous page</button></a></span>
+    <span class="no_print"><a href="/main_page?page=${pagenumber}" py:if="int(pagenumber) &lt; 2"><button class="btn btn-primary">Previous page</button></a></span>
+    <span class="no_print"><a href="/main_page?page=${pagenumber + 1}"><button class="btn btn-primary">Next page</button></a></span>
+
+    <br /> <br />
+    <p><b>Database</b></p>
+    <form role="form" class="form-inline" method="POST" action="/">
+        <div class="form-group">
+            <select class="form-control" name="filepath">
+
+                <option value="${path}" selected="${cur}" py:for="path, cur in dbfiles.items()">
+                    ${path.split("\\")[-1]}
+                </option>
+
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Change</button>
+    </form>
+
+    <h2>Test sessions</h2>
+    <div class="viewselectors">
+        <span class="viewselector selected no_print" id="viewsel_latest">Latest</span>
+        <span class="viewselector no_print" id="viewsel_manufacturers">By manufacturer</span>
+    </div>
+    <div id="view_latest">
+        <table class="test_sessions datatable">
+            <tr>
+            <th class="id">ID</th>
+            <th class="narrow">Operator</th>
+            <th class="datetime">Started</th>
+            <th class="datetime">Ended</th>
+            <th>Samples</th>
+            <th>Manufacturers</th>
+            <th>Program</th>
+            <th class="narrow">Version</th>
+            <th class="narrow">Pass/Fail</th>
+            <th>Notes</th>
+            <th class="delete">Delete</th>
+            </tr>
+            <tr class="test_session_row" py:for="ts in latest" data-id="${ts[0].id}">
+                <td>${ts[0].id}</td>
+                <td>${ts[0].operator}</td>
+                <td>${ts[0].starttime}</td>
+                <td>${ts[0].endtime}</td>
+                <td>${ts[2][0]}</td>
+                <td>${ts[2][2]}</td>
+                <td>${ts[2][1]}</td>
+                <td>${ts[2][3]}</td>
+                <td class="${'passed' if ts[1] == 'Pass' else 'failed' if ts[1]=='Fail' else ''}">${ts[1]}</td>
+                <td class="notes">${ts[0].notes}</td>
+                <td data-toggle="modal" data-target="#deletemodal" data-id="${ts[0].id}"><span class="glyphicon glyphicon glyphicon-remove"></span></td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div id="view_manufacturers">
+    <div class="collapsing-list">
+        <div py:for="man_i, man in enumerate(manufacturers)">
+        <div class="collapsing-header" data-indx="${'m%d' % man_i}">
+            <div class="collapsing-icon"><img class="icon-closed" src="/static/img/tree_closed.png" alt="-"/>
+                                         <img class="icon-open" src="/static/img/tree_open.png" alt="+"/></div>
+            <div class="collapsing-content">
+                <span class="maintree_header">${man[0] if man[0] is not None and len(man[0]) > 0 else "[Empty]"}</span>
+            </div>
+        </div>
+        <div class="collapsing-subrow">
+            <div class="collapsing-icon"></div>
+            <div class="collapsing-content">
+                <div py:for="prog_i, program in enumerate(man[1])" class="collapsing-list">
+                <div class="collapsing-header" data-indx="${'m%d_p%d' % (man_i, prog_i)}">
+                    <div class="collapsing-icon"><img class="icon-closed" src="/static/img/tree_closed.png" alt="+"/>
+                                                 <img class="icon-open" src="/static/img/tree_open.png" alt="-"/></div>
+                    <div class="collapsing-content">
+                        <span class="maintree_header">${program[0] if program[0] is not None and len(program[0]) > 0 else "[Empty]"}</span>
+                    </div>
+                </div>
+                <div class="collapsing-subrow">
+                    <div class="collapsing-icon"></div>
+                    <div class="collapsing-content">
+
+                        <table class="test_sessions datatable">
+                            <tr>
+                            <th class="id">ID</th>
+                            <th class="narrow">Operator</th>
+                            <th class="datetime">Started</th>
+                            <th class="datetime">Ended</th>
+                            <th>Samples</th>
+                            <th>Manufacturers</th>
+                            <th>Program</th>
+                            <th class="narrow">Version</th>
+                            <th class="narrow">Pass/Fail</th>
+                            <th>Notes</th>
+                            <th class="delete">Delete</th>
+                            </tr>
+                            <tr class="test_session_row" py:for="ts in program[1]" data-id="${ts[0].id}">
+                                <td>${ts[0].id}</td>
+                                <td>${ts[0].operator}</td>
+                                <td>${ts[0].starttime}</td>
+                                <td>${ts[0].endtime}</td>
+                                <td>${ts[2][0]}</td>
+                                <td>${ts[2][2]}</td>
+                                <td>${ts[2][1]}</td>
+                                <td>${ts[2][3]}</td>
+                                <td class="${'passed' if ts[1] == 'Pass' else 'failed' if ts[1]=='Fail' else ''}">${ts[1]}</td>
+                                <td class="notes">${ts[0].notes}</td>
+                                <td data-toggle="modal" data-target="#deletemodal" data-id="${ts[0].id}"><span class="glyphicon glyphicon glyphicon-remove"></span></td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+                </div>
+            </div>
+         </div>
+         </div>
+    </div>
+    </div>
+
+    <div class="modal fade" id="deletemodal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Delete test session</h4>
+          </div>
+          <div class="modal-body">
+            <p>You're going to delete test session <b><span class="idspan"></span></b>.
+               This will delete all data which is related to this test session.
+               This action cannot be undone. Are you sure you want to proceed?
+           </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-danger" id="deleteRequest" data-id="">Delete Test Tession</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="clear"><br /></div>
+
+    <div><button class="btn btn-warning" type="submit" id="recalculate_button" value="Recalculate all">Recalculate all</button></div>
+    </div>
+    <div id="loading">
+        <div class="row">
+            <div class="col-md-1"></div>
+                <div class="col-md-6">
+                    <br/><br/>
+                    <p>Recalculating analysis. Please wait.</p>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                        <span class="prog"></span> %
+                    </div>
+                </div>
+                <br/><br/>
+                </div>
+        </div>
+    </div>
+    <br/><br/>
+    </div>
+
+    <script type="text/javascript" src="/static/script/libs/jquery-2.1.0.min.js"/>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/script/mainpage.js"/>
+  </body>
+</html>

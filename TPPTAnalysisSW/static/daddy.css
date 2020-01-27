@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+@media screen {
+body{
+	font-family: 'Open Sans', sans-serif;
+	background-color: #A0C6F7;
+	background-image: url(img/bg.jpg);
+	background-repeat: repeat-x;
+	margin: 20px;
+	color: #595959;
+}
+}
+
+@media print {
+body{
+	font-family: 'Open Sans', sans-serif;
+	background-color: #ffffff;
+	margin: 5px;
+	color: #000000;
+}
+}
+
+th {
+	font-family: 'Open Sans Condensed', sans-serif;
+	padding: 5px;
+}
+
+.report{
+	background-color: #FFFFFF;
+	background-image: url(img/logobg.jpg);
+	background-repeat: repeat-x;
+	border-radius: 10px;
+}
+
+tr{background: #FFF}
+tr:nth-child(even) {background: #f0f0f0 !important;}
+tr:nth-child(odd) {background: #FFF !important;}
+td{padding:5px;}
+

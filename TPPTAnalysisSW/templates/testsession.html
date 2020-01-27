@@ -1,0 +1,71 @@
+<html xmlns:py="http://genshi.edgewall.org/" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <head>
+    <title>${session.operator} ${session.starttime}, test session ID: ${session.id}</title>
+    <script type="text/javascript" src="/static/script/libs/jquery-2.1.0.min.js"/>
+    <script type="text/javascript" src="/static/script/testsession.js"></script>
+    <link rel="shortcut icon" href="/static/img/favicon.ico"/>
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/static/reportstyle.css" />
+    <link rel="stylesheet" type="text/css" href="/static/daddy.css" />
+    <link rel="stylesheet" type="text/css" href="/static/style.css" />
+  </head>
+
+  <body>
+    <div class="report">
+    <div id="Main" class="content" style="display: block; visibility: visible;">
+        <div class="no_summary"><a href="/"><img src="/static/img/logo.jpg"/></a><p class="version no_summary">Analysis software version ${version.simple}</p></div>
+        <span class="no_print no_summary"><br/>
+            <a href="/"><button class="btn btn-primary">Back</button></a>
+            <a href="/summary/${session.id}"><button class="btn btn-info">Summary</button></a>
+            <button py:if="sql_uploader_initialized" class="btn btn-info" id="upload_session_button" data-session-id="${session.id}" py:attrs="session_upload_button_attributes">
+                <span class="glyphicon glyphicon-cloud-upload"></span>
+                Upload to cloud
+            </button>
+        </span>
+        <h2 class="session_title no_summary">${session.operator} ${session.starttime}, test session ID: ${session.id}</h2>
+        <table class="constanttable">
+            <tr>
+                <th>Notes
+                <span id="notes_edit" class="editnotes no_summary"><button class="btn btn-primary btn-xs">Edit</button></span>
+                <span id="notes_save" class="editnotes no_summary"><button class="btn btn-success btn-xs">Save</button></span>
+                </th>
+            </tr>
+            <tr>
+                <td><span id="notes">${session.notes}</span>
+                    <textarea id="notes_editor" class="editor no_summary" placeholder="Session notes">${session.notes}</textarea>
+                </td>
+            </tr>
+        </table>
+        <div py:for="dut in duts">
+            <h3>${dut[0].program}, ${dut[0].manufacturer}, ${dut[0].batch}, ${dut[0].sample_id} <a href="/testsessionsettings/${session.id}/${dut[0].id}"><button class="btn btn-primary btn-sm">Settings</button></a></h3>
+            <table class="datatable">
+                <tr>
+                    <th>Name</th>
+                    <th>Start time</th>
+                    <th>End time</th>
+                    <th class="narrow">Finger</th>
+                    <th class="narrow">Invalid</th>
+                    <th class="narrow">Pass/Fail</th>
+                    <th py:if="sql_uploader_initialized" class="narrow">Upload</th>
+                </tr>
+                <tr py:for="test,result, button_attributes in dut[1]" >
+                    <td class="${'' if result=='Error' else 'test_row'}" data-test-id="${test.id}">${"%s #%s" % (test.type.name, test.id)}</td>
+                    <td>${test.starttime}</td>
+                    <td>${test.endtime}</td>
+                    <td>${test.finger_type}</td>
+                    <td>${test.invalid}</td>
+                    <td class="${'passed' if result=='Pass' else 'failed' if result=='Fail' or result=='Error' else ''}">${result if result!='Error' else 'Error in analysis!'}</td>
+                    <td py:if="sql_uploader_initialized">
+                        <button class="no_print btn btn-info upload_test_button" data-test-id="${test.id}" py:attrs="button_attributes">
+                        <span class="glyphicon glyphicon-cloud-upload"></span>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <br/><br/>
+    </div>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>

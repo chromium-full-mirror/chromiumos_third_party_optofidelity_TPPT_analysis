@@ -1,0 +1,100 @@
+<html xmlns:py="http://genshi.edgewall.org/" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <head>
+    <title>Dut ${dutinfo.id} settings</title>
+    <script type="text/javascript" src="/static/script/libs/jquery-2.1.0.min.js"/>
+    <script type="text/javascript" src="/static/script/test_dut_settings.js"></script>
+    <link rel="shortcut icon" href="/static/img/favicon.ico"/>
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/static/reportstyle.css" />
+    <link rel="stylesheet" type="text/css" href="/static/daddy.css" />
+    <link rel="stylesheet" type="text/css" href="/static/style.css" />
+  </head>
+  <body>
+    <span id="dut_id" style="visibility: hidden">${dutinfo.id}</span>
+    <div class="report">
+    <div id="Main" class="content">
+    <div><a href="/"><img src="/static/img/logo.jpg"/></a><p class="version">Analysis software version ${version.simple}</p></div>
+    <span class="no_print"><br/><a href="/testsessions/${testsessionid}"><button class="btn btn-primary">Back</button></a></span>
+    <h2>Product settings</h2>
+
+    <span class="errormsg no_print"></span>
+
+    <table class="listtable settings_table">
+    <tr>
+        <th>Setting</th>
+        <th>Analysis Value</th>
+    </tr>
+    <tr>
+        <td>Touch screen size x</td>
+        <td><input class="setting_value_input" type="text" name="size_x" value="${dutinfo.dimensions[0]}"/> mm</td>
+    </tr>
+    <tr>
+        <td>Touch screen size y</td>
+        <td><input class="setting_value_input" type="text" name="size_y" value="${dutinfo.dimensions[1]}"/> mm</td>
+    </tr>
+    <tr>
+        <td>Touch digitizer resolution x</td>
+        <td><input class="setting_value_input" type="text" name="digitizer_resolution_x" value="${dutinfo.digitizer_resolution[0]}"/> px</td>
+    </tr>
+    <tr>
+        <td>Touch digitizer resolution y</td>
+        <td><input class="setting_value_input" type="text" name="digitizer_resolution_y" value="${dutinfo.digitizer_resolution[1]}"/> px</td>
+    </tr>
+    <tr>
+        <td>Switch X and Y coordinates</td>
+        <td id="switchxy_td">
+          <input class="setting_value_checkbox" type="radio" name="switchxy" id="switchxy_yes" value="1" checked="${True if dutinfo.switchxy else None}"/><label for="switchxy_yes">Yes</label>
+          <input class="setting_value_checkbox" type="radio" name="switchxy" id="switchxy_no" value="0" checked="${True if not dutinfo.switchxy else None}"/><label for="switchxy_no">No</label>
+        </td>
+    </tr>
+    <tr>
+        <td>Flip X coordinates</td>
+        <td id="flipx_td">
+          <input class="setting_value_checkbox" type="radio" name="flipx" id="flipx_yes" value="1" checked="${True if dutinfo.flipx else None}"/><label for="flipx_yes">Yes</label>
+          <input class="setting_value_checkbox" type="radio" name="flipx" id="flipx_no" value="0" checked="${True if not dutinfo.flipx else None}"/><label for="flipx_no">No</label>
+        </td>
+    </tr>
+    <tr>
+        <td>Flip Y coordinates</td>
+        <td id="flipy_td">
+          <input class="setting_value_checkbox" type="radio" name="flipy" id="flipy_yes" value="1" checked="${True if dutinfo.flipy else None}"/><label for="flipy_yes">Yes</label>
+          <input class="setting_value_checkbox" type="radio" name="flipy" id="flipy_no" value="0" checked="${True if not dutinfo.flipy else None}"/><label for="flipy_no">No</label>
+        </td>
+    </tr>
+    </table>
+
+    <h2>DUT settings</h2>
+    <table class="listtable settings_table">
+    <tr>
+        <th>DUT identifier</th>
+        <th>Value</th>
+    </tr>
+    <tr>
+        <td>Manufacturer</td>
+        <td><input class="dut_value_input" type="text" name="dut_manufacturer" value="${dutinfo.manufacturer}"/></td>
+    </tr>
+    <tr>
+        <td>Program</td>
+        <td><input class="dut_value_input" type="text" name="dut_program" value="${dutinfo.program}"/></td>
+    </tr>
+    <tr>
+        <td>Version</td>
+        <td><input class="dut_value_input" type="text" name="dut_batch" value="${dutinfo.batch}"/></td>
+    </tr>
+    <tr>
+        <td>Sample ID</td>
+        <td><input class="dut_value_input" type="text" name="dut_sample_id" value="${dutinfo.sample_id}"/></td>
+    </tr>
+    </table>
+    <!-- img id="setupimage" src="../static/img/setup.png"/ -->
+    <span id="output"></span>
+
+    <br/>
+    <button class="btn btn-primary" id="save_button">Save All</button>
+    <br/><br/>
+    </div>
+    <div id="loading" style="display: none; padding: 20px;">Recalculating test session... Please wait.</div>
+    </div>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>

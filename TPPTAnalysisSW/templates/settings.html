@@ -1,0 +1,76 @@
+<html xmlns:py="http://genshi.edgewall.org/" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <head>
+    <title>Analysis limits</title>
+	<script type="text/javascript" src="/static/script/libs/jquery-2.1.0.min.js"></script>
+	<link rel="shortcut icon" href="/static/img/favicon.ico"/>
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="/static/reportstyle.css" />
+    <link rel="stylesheet" type="text/css" href="/static/daddy.css" />
+    <link rel="stylesheet" type="text/css" href="/static/style.css" />
+    <link rel="stylesheet" type="text/css" href="/static/mainpage.css" />
+  </head>
+  <body>
+	<div class="report">
+	<div id="Main" class="content" style="display: block; visibility: visible;">
+	<div><a href="/"><a href="/"><img src="/static/img/logo.jpg"/></a></a><p class="version">Analysis software version ${version.simple}</p></div>
+	<span class="no_print"><br/><a href="/"><button class="btn btn-primary">Back</button></a></span>    <br />    <br />
+    <br />
+    <div class="row">
+        <div class="col-md-6">
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close close-alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+        </div>
+    </div>
+
+	<h2>Analysis limits</h2>
+    <span class="errormsg no_print"></span>
+    <form id="save" method="post" action="">
+    <button id="save_button" class="btn btn-warning" type="submit" value="recalculate">Save and Recalculate All</button>
+    <button id="save_button" class="btn btn-primary" type="submit" name="mode" value="norecalculate">Save Only</button>
+    <div py:for="group in groups">
+      <h3>${", ".join(group[0]) if group[0] is not None else 'Uncategorized'}</h3>
+        <div class="row">
+            <div class="col-md-6">
+        	  <table class="table table-striped listtable settings_table">
+        	  <tr>
+        		  <th class="setting_name">Setting</th>
+        		  <th class="setting_input">Value</th>
+        	  </tr>
+        	  <tr py:for="setting in group[1]">
+        		  <td class="setting_name">${setting.desc}</td>
+        		  <td class="setting_input">
+                    <input class="input-sm setting_value_input" type="text" name="${setting.id}" value="${setting.value}"/> ${setting.unit}
+                  </td>
+        	  </tr>
+        	  </table>
+            </div>
+        </div>
+  	  <br/><br/>
+    </div>
+    <button id="save_button" class="btn btn-warning" type="submit" value="recalculate">Save and Recalculate All</button>
+    <button id="save_button" class="btn btn-primary" type="submit" name="mode" value="norecalculate">Save Only</button>
+    </form>
+    <br /><br />
+	</div>
+	<div id="loading">
+        <div class="row">
+            <div class="col-xs-1"></div>
+            <div class="col-md-6">
+                <br/><br/>
+                <p>Recalculating analysis. Please wait.</p>
+        <div class="progress">
+            <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                <span class="prog"></span> %
+        </div>
+        </div>
+        <br/><br/>
+        </div>
+        </div>
+    </div>
+	</div>
+    <script type="text/javascript" src="/static/script/libs/jquery-2.1.0.min.js"/>
+    <script type="text/javascript" src="/static/script/settings.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>

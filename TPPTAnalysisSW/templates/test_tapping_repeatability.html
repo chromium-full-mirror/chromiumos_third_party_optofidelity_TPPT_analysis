@@ -1,0 +1,161 @@
+<div xmlns:py="http://genshi.edgewall.org/">
+    <table class="datatable test_verdicts">
+        <tr>
+            <th>Touch down repeatability</th>
+            <th>Value</th>
+            <th>Maximum allowed</th>
+            <th>Pass/Fail</th>
+        </tr>
+        <tr>
+            <td class="vertical_header_th">Average of point max error</td>
+            <td>${"%.3f" % avg_of_max_down_repeatability_error} mm</td>
+            <td>${"%.3f" % max_allowed_error_pen_down} mm</td>
+            <td class="${'passed' if verdict_down=='Pass' else 'failed'}">$verdict_down</td>
+        </tr>
+        <tr>
+            <td class="vertical_header_th">Maximum</td>
+            <td>${"%.3f" % max_down_repeatability_error} mm</td>
+        </tr>
+        <tr>
+            <td class="vertical_header_th">Average</td>
+            <td>${"%.3f" % avg_down_repeatability_error} mm</td>
+        </tr>
+        <tr>
+            <td class="vertical_header_th">Standard deviation</td>
+            <td>${"%.3f" % std_dev_down_repeatability_error} mm</td>
+        </tr>
+    </table>
+    <table class="datatable test_verdicts">
+        <tr>
+            <th>Touch up repeatability</th>
+            <th>Value</th>
+            <th>Maximum allowed</th>
+            <th>Pass/Fail</th>
+        </tr>
+        <tr>
+            <td class="vertical_header_th">Average of point max error</td>
+            <td>${"%.3f" % avg_of_max_lift_repeatability_error} mm</td>
+            <td>${"%.3f" % max_allowed_error_pen_lift} mm</td>
+            <td class="${'passed' if verdict_lift=='Pass' else 'failed'}">$verdict_lift</td>
+        </tr>
+        <tr>
+            <td class="vertical_header_th">Maximum</td>
+            <td>${"%.3f" % max_lift_repeatability_error} mm</td>
+        </tr>
+        <tr>
+            <td class="vertical_header_th">Average</td>
+            <td>${"%.3f" % avg_lift_repeatability_error} mm</td>
+        </tr>
+        <tr>
+            <td class="vertical_header_th">Standard deviation</td>
+            <td>${"%.3f" % std_dev_lift_repeatability_error} mm</td>
+        </tr>
+    </table>
+
+    <h3>Completeness results</h3>
+    <table class="datatable test_verdicts">
+        <tr>
+            <th>Parameter</th>
+            <th>Value</th>
+            <th>Maximum allowed</th>
+            <th>Pass/Fail</th>
+        </tr>
+        <tr>
+            <td>Missing points</td>
+            <td>${"%.1f" % missing_point_percentage} %</td>
+            <td>${"%.1f" % maxmissing_in_percentage} %</td>
+            <td class="${'passed' if missing_point_verdict=='Pass' else 'failed'}">$missing_point_verdict</td>
+        </tr>
+    </table>
+
+    <!-- Preview image -->
+    <div py:if="'noimages' not in kwargs" class="preview">
+        <a href="${detailed_figure}">
+            <img src="${figure}" width="800" height="600" alt="Preview image"/>
+        </a>
+    </div>
+
+    <!--! Preview table -->
+    <div class="dtable no_print">
+        <div class="dtable_row subplot_selector">
+            <div class="dtable_header narrow_cell">Toggle:
+            </div>
+            <div class="dtable_header narrow_cell subplot_button">
+                <button class="all_lines_button">All</button>
+            </div>
+            <div class="dtable_header narrow_cell subplot_button">
+                <button class="failed_lines_button">Failed</button>
+            </div>
+            <div class="dtable_header narrow_cell subplot_button">
+                <button class="passed_lines_button">Passed</button>
+            </div>
+        </div>
+    </div>
+
+    <span><H4>Touch down</H4></span>
+    <div class="subplot_table dtable">
+        <div class="dtable_header_row">
+            <div class="dtable_header narrow_cell">Point ID
+            </div>
+            <div class="dtable_header narrow_cell">Average
+            </div>
+            <div class="dtable_header narrow_cell">Stdev
+            </div>
+            <div class="dtable_header narrow_cell">Maximum
+            </div>
+            <div class="dtable_header narrow_cell">Pass/Fail
+            </div>
+            <div class="dtable_header no_print">Detailed plot</div>
+        </div>
+        <div py:for="down_accuracy_error_max, down_accuracy_error_avg, down_accuracy_error_sd, verdict, point_id in repeatability_errors_down"
+             class="dtable_row plot_header">
+            <div class="dtable_cell narrow_cell">${point_id}
+            </div>
+            <div class="dtable_cell narrow_cell"> ${"%.3f mm" % down_accuracy_error_avg if type(down_accuracy_error_avg) is float else "N/A"}
+            </div>
+            <div class="dtable_cell narrow_cell"> ${"%.3f mm" % down_accuracy_error_sd if type(down_accuracy_error_sd) is float else "N/A"}
+            </div>
+             <div class="dtable_cell narrow_cell"> ${"%.3f mm" % down_accuracy_error_max if type(down_accuracy_error_max) is float else "N/A"}
+            </div>
+            <div class="dtable_cell narrow_cell ${'passed' if verdict=='Pass' else 'failed'}"> ${verdict}
+            </div>
+            <div class="dtable_cell no_print">
+                <button type="button" class="show_plot">Show/Hide</button>
+            </div>
+            <div class="plot" data-src="${pointPlots_down[point_id]}"/>
+        </div>
+    </div>
+    <span><H4>Touch up</H4></span>
+    <div class="subplot_table dtable">
+        <div class="dtable_header_row">
+            <div class="dtable_header narrow_cell">Point ID
+            </div>
+            <div class="dtable_header narrow_cell">Average
+            </div>
+            <div class="dtable_header narrow_cell">Stdev
+            </div>
+            <div class="dtable_header narrow_cell">Maximum
+            </div>
+            <div class="dtable_header narrow_cell">Pass/Fail
+            </div>
+            <div class="dtable_header no_print">Detailed plot</div>
+        </div>
+        <div py:for="lift_accuracy_error_max, lift_accuracy_error_avg, lift_accuracy_error_sd, verdict, point_id in repeatability_errors_lift"
+             class="dtable_row plot_header">
+            <div class="dtable_cell narrow_cell">${point_id}
+            </div>
+            <div class="dtable_cell narrow_cell"> ${"%.3f mm" % lift_accuracy_error_avg if type(lift_accuracy_error_avg) is float else "N/A"}
+            </div>
+            <div class="dtable_cell narrow_cell"> ${"%.3f mm" % lift_accuracy_error_sd if type(lift_accuracy_error_sd) is float else "N/A"}
+            </div>
+            <div class="dtable_cell narrow_cell"> ${"%.3f mm" % lift_accuracy_error_max if type(lift_accuracy_error_max) is float else "N/A"}
+            </div>
+            <div class="dtable_cell narrow_cell ${'passed' if verdict=='Pass' else 'failed'}"> ${verdict}
+            </div>
+            <div class="dtable_cell no_print">
+                <button type="button" class="show_plot">Show/Hide</button>
+            </div>
+            <div class="plot" data-src="${pointPlots_lift[point_id]}"/>
+        </div>
+    </div>
+</div>

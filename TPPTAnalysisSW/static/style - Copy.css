@@ -1,0 +1,103 @@
+body {
+ font-family: "Helvetica";
+}
+.listing_table {
+border-width: 0;
+border-spacing: 0px;
+border-style: double;
+border-color: black;
+border-collapse: collapse;
+background-color: white;
+width: 100%;
+margin-bottom: 10px;
+}
+.listing_table th, .listing_table td {
+ border: 1px solid #000;
+ padding: 3px;
+ text-align: center;
+}
+.listing_table th {
+ background-color: #E0EFFF;
+}
+
+#lines_table
+{
+ width: 600px;
+}
+#test_sessions,#tests {
+ border-collapse: collapse;
+ width: 800px;
+}
+#test_sessions th,#test_sessions td,#tests th,#tests td,#selected_lines th,#selected_lines td
+{
+ border: 1px solid #000;
+ padding: 3px;
+}
+
+#test_sessions tr.highlight,#tests tr.highlight
+ {
+  background-color: #D2F5C6;
+  cursor:pointer;
+ }
+ #settings_table
+ {
+   text-align:right;
+ }
+ 
+ .failed
+ {
+  background-color: #FFC4C4;
+ }
+ .passed
+ {
+  background-color: #CDFFC4;
+ }
+ #control_panel
+ {
+  position: absolute;
+  height: 100%;
+  overflow: auto;
+  top:0;
+  left:0;
+ }
+ #image_area
+ {
+  top:0;
+  right:0;
+  position: absolute;
+  overflow: auto;
+  float: right;
+  border-left: black 1px dashed;
+  height: 100%;
+  width: 800px;
+ }
+ #load_image
+ {
+    margin-left: auto;
+	margin-right: auto;
+	
+ }
+ .vertical_header_th
+ {
+  text-align:right;
+ }
+ .plot_type_header
+ {
+  cursor:pointer;
+ }
+#print_container {
+  visibility:hidden;
+}
+@media print {
+  body * {
+    visibility:hidden;
+  }
+  #print_container, #print_container * {
+    visibility:visible;
+  }
+  #print_container {
+    position:absolute;
+    left:0;
+    top:0;
+  }
+}

@@ -1,0 +1,35 @@
+    <div>
+	<h3>TouchResolution</h3>
+	<table class="datatable">
+		<tr>
+			<th>Digitizer resolution</th>
+			<th></th>
+			<th>Native display resolution</th>
+			<th>Pass/Fail</th>
+		</tr>
+		
+		<tr>
+			<td>${"%d x %d"%(results.digitizerResolution[0], results.digitizerResolution[1])}</td>
+			<td>>=</td>
+			<td>${"%d x %d"%(results.nativeResolution[0], results.nativeResolution[1])}</td>
+			<td class="${'passed' if results.resolutionTestPassed else 'failed'}" >${"Pass" if results.resolutionTestPassed else "Fail"}</td>
+		</tr>
+	</table>
+	
+	<h3>PhysicalDimension</h3>
+	<table class="datatable">
+		<tr>
+			<th>Dimensions</th>
+			<th>PPI</th>
+			<th>Minimum allowed PPI</th>
+			<th>Pass/Fail</th>
+		</tr>
+		<tr>
+			<td>${"%.1f mm x %.1f mm"%(results.dimensions[0], results.dimensions[1])}</td>
+			<td>${"%.1f" % results.ppi}</td>
+			<td>${"%.1f" % settings.minppi}</td>
+			<td class="${'passed' if results.physicalDimensionTestPassed else 'failed'}" >${"Pass" if results.physicalDimensionTestPassed else "Fail"}</td>
+		</tr>
+	</table>
+    <p>&nbsp;</p>
+    </div>

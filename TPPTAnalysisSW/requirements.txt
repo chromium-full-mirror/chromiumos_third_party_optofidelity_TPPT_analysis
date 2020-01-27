@@ -1,0 +1,6 @@
+genshi
+sqlalchemy
+pymysql
+numpy
+matplotlib
+cherrypy

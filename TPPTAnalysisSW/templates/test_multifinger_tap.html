@@ -1,0 +1,93 @@
+    <div xmlns:py="http://genshi.edgewall.org/">
+    <?python from genshi.builder import tag ?>
+    <?python from genshi.util import flatten ?>
+      <table class="datatable test_verdicts">
+        <tr>
+            <th></th>
+            <th>Value</th>
+            <th>Maximum allowed</th>
+            <th>Pass/Fail</th>
+        </tr>
+        <tr>
+            <td class="vertical_header_th" py:if="not results.edge_analysis_done">Max accuracy error:</td>
+            <td class="vertical_header_th" py:if="results.edge_analysis_done">Max center accuracy error:</td>
+            <td>${"%s mm" % results.max_input_offset if results.max_input_offset is not None else 'N/A'}</td>
+            <td>${"%s" % settings['maxposerror']} mm</td>
+            <td class="${'' if results.max_input_offset is None else 'passed' if settings['maxposerror'] >= results.max_input_offset else 'failed'}" >
+                 ${results.max_input_offset_verdict}
+            </td>
+        </tr>
+        <tr py:if="results.edge_analysis_done">
+            <td class="vertical_header_th">Max edge accuracy error:</td>
+            <td>${"%s" % results.max_edge_error} mm</td>
+            <td>${"%s" % settings['edgepositioningerror']} mm</td>
+            <td class="${'passed' if settings['edgepositioningerror'] >= results.max_edge_error else 'failed'}" >
+                 ${"Pass" if settings['edgepositioningerror'] >= results.max_edge_error else "Fail"}
+            </td>
+        </tr>
+        <tr py:if="not results.edge_analysis_done">
+            <td class="vertical_header_th">Missing inputs:</td>
+            <td>${results.missing_inputs}/${results.total_points}</td>
+            <td>${int(settings['maxmissing'])}</td>
+            <td class="${'passed' if results.missing_inputs_verdict else 'failed'}">${"Pass" if results.missing_inputs_verdict else "Fail"}</td>
+        </tr>
+        <tr py:if="results.edge_analysis_done">
+            <td class="vertical_header_th">Missing center inputs:</td>
+            <td>${results.missing_inputs - results.missing_edge_inputs}/${results.total_points - results.edge_points}</td>
+            <td>${int(settings['maxmissing'])}</td>
+            <td class="${'passed' if results.missing_inputs_verdict else 'failed'}">${"Pass" if results.missing_inputs_verdict else "Fail"}</td>
+        </tr>
+        <tr py:if="results.edge_analysis_done">
+            <td class="vertical_header_th">Missing edge inputs:</td>
+            <td>${results.missing_edge_inputs}/${results.edge_points}</td>
+            <td>${int(settings['maxedgemissing'])}</td>
+            <td class="${'passed' if results.missing_edge_inputs_verdict else 'failed'}">${"Pass" if results.missing_edge_inputs_verdict else "Fail"}</td>
+        </tr>
+        <tr>
+            <td class="vertical_header_th">Errors:</td>
+            <td>${len(results.errors)}</td>
+            <td>0</td>
+            <td class="${'passed' if len(results.errors) == 0 else 'failed'}">${"Pass" if len(results.errors) == 0 else "Fail"}</td>
+        </tr>
+        <tr py:if="len(results.errors) > 0">
+            <td class="vertical_header_th">Error descriptions:</td>
+            <td colspan="2">${tag(flatten((e,tag.br) for e in sorted(results.errors)))}</td>
+        </tr>
+      </table>
+
+      <div py:if="'noimages' not in kwargs" py:for="img in results.images" class="preview">
+        <a href="${img[1]}">
+            <img src="${img[0]}" alt="Preview image"/>
+        </a>
+      </div>
+
+        <!--! Preview table -->
+        <div class="dtable no_print">
+	        <div class="dtable_row">
+		        <div class="dtable_header narrow_cell">Toggle:</div>
+		        <div class="dtable_header narrow_cell"><button class="all_lines_button">All</button></div>
+                <div class="dtable_header narrow_cell"><button class="failed_lines_button">Failed</button></div>
+		        <div class="dtable_header narrow_cell"><button class="passed_lines_button">Passed</button></div>
+            </div>
+        </div>
+
+	  <div class="dtable subplot_table">
+		<div class="dtable_row">
+			<div class="dtable_header narrow_cell">Tap</div>
+			<div class="dtable_header narrow_cell"># of Fingers</div>
+			<div class="dtable_header narrow_cell">Errors</div>
+			<div class="dtable_header">Maximum offset</div>
+			<div class="dtable_header narrow_cell">Pass/Fail</div>
+			<div class="dtable_header no_print">Detailed plot</div>
+		</div>
+		<div py:for="tap in results.taps" class="dtable_row plot_header">
+			<div class="dtable_cell narrow_cell">${tap.id}</div>
+			<div class="dtable_cell narrow_cell">${tap.num_fingers}</div>
+			<div class="dtable_cell narrow_cell">${len(tap.errors)}</div>
+			<div class="dtable_cell">${tap.max_input_offset}</div>
+			<div class="dtable_cell narrow_cell ${'' if tap.max_input_offset is None else 'passed' if tap.verdict else 'failed'}">${tap.verdict_text}</div>
+			<div class="dtable_cell no_print"><button type="button" class="show_plot">Show/Hide</button></div>
+			<div class="plot" data-src="${tap.image}"/>
+		</div>		
+      </div>
+    </div>

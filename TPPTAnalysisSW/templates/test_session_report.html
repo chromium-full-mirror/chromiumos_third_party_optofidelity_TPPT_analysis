@@ -1,0 +1,530 @@
+    <div xmlns:py="http://genshi.edgewall.org/">
+
+    <h2>Summary of the tests</h2>
+
+    <div py:for="summary in summaries">
+        <table class="datatable test_verdicts">
+            <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th>Pass/Fail</th>
+            </tr>
+            <tr>
+                <td>${summary.id}</td>
+                <td>${summary.type}</td>
+                <td class="${'passed' if summary.verdict == 'Pass' else 'failed' if summary.verdict == 'Fail' else ''}">${summary.verdict}</td>
+            </tr>
+        </table>
+
+    </div>
+
+    <div py:for="results in all_results">
+
+           <!--! Display test and session parameters -->
+    <h1 class="test_title">${"%s #%s" % (results[0].test_type_name, results[1].test_id)}</h1>
+    <h2 class="test_title">${results[1].dut['manufacturer']} ${results[1].dut['program']} ${results[1].dut['sample_id']} ${results[1].test_item['finger_type']}
+        <span class="no_summary">${results[1].testsession['operator']} ${results[1].test_item['starttime']}, test session ID: ${results[1].testsession['id']}</span>
+    </h2>
+
+        <table class="datatable test_verdicts">
+            <tr>
+                <th></th>
+                <th>Value</th>
+                <th>Maximum allowed</th>
+                <th>Pass/Fail</th>
+            </tr>
+            <tr>
+                <td class="vertical_header_th">Ghost touches:</td>
+                <td>${results[0].ghost_touches_and_events.max_ghost_touch_count}</td>
+                <td>0</td>
+                <td class="${'passed' if results[0].ghost_touches_and_events.max_ghost_touch_count == 0 else 'failed'}" >
+                     ${"Pass" if results[0].ghost_touches_and_events.max_ghost_touch_count == 0 else "Fail"}
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <th>Value</th>
+                <th>Must have</th>
+                <th>Pass/Fail</th>
+            </tr>
+            <tr>
+                <td class="vertical_header_th">Touchup events:</td>
+                <td>${results[0].ghost_touches_and_events.ups}</td>
+                <td>${results[0].max_events}</td>
+                <td class="${'passed' if results[0].max_events == results[0].ghost_touches_and_events.ups else 'failed'}" >
+                     ${"Pass" if results[0].max_events == results[0].ghost_touches_and_events.ups else "Fail"}
+                </td>
+            </tr>
+            <tr>
+                <td class="vertical_header_th">Touchdown events:</td>
+                <td>${results[0].ghost_touches_and_events.downs}</td>
+                <td>${results[0].max_events}</td>
+                <td class="${'passed' if results[0].max_events == results[0].ghost_touches_and_events.downs else 'failed'}" >
+                     ${"Pass" if results[0].max_events == results[0].ghost_touches_and_events.downs else "Fail"}
+                </td>
+            </tr>
+        </table>
+        
+        <h3>Swipe Latency</h3>
+
+        <table class="datatable test_verdicts">
+            <tr>
+                <th></th>
+                <th>Value</th>
+                <th>Maximum allowed</th>
+                <th>Pass/Fail</th>
+            </tr>
+            <tr py:if="'swipe_accuracy' in results[0]">
+                <td class="vertical_header_th">Failed lines</td>
+                <td>${results[0].swipe_accuracy.failed_paths} / ${results[0].swipe_accuracy.failed_paths + results[0].swipe_accuracy.passed_paths}</td>
+                <td>0</td>
+                <td class="${'passed' if results[0].swipe_accuracy.failed_paths == 0 else 'failed'}" >
+                     ${"Pass" if results[0].swipe_accuracy.failed_paths == 0 else "Fail"}
+                </td>
+            </tr>
+            <tr py:if="'swipe_accuracy' in results[0]">
+                <td class="vertical_header_th">Max swipe latency (AKA mcg test) error:</td>
+                <td>${"%s" % results[0].swipe_accuracy.max_input_error} mm</td>
+                <td>${"%s" % results[1].settings['swipeerror']} mm</td>
+                <td class="${'passed' if results[1].settings['swipeerror'] >= results[0].swipe_accuracy.max_input_error else 'failed'}" >
+                     ${"Pass" if results[1].settings['swipeerror'] >= results[0].swipe_accuracy.max_input_error else "Fail"}
+                </td>
+            </tr>
+        </table>
+
+        <h3>Path Accuracy</h3>
+
+        <table class="datatable test_verdicts">
+            <tr>
+                <th></th>
+                <th>Value</th>
+                <th>Maximum allowed</th>
+                <th>Pass/Fail</th>
+            </tr>
+            <tr py:if="'path_accuracy' in results[0]">
+                <td class="vertical_header_th">Failed lines</td>
+                <td>${results[0].path_accuracy.failed_paths} / ${results[0].path_accuracy.failed_paths + results[0].path_accuracy.passed_paths}</td>
+                <td>0</td>
+                <td class="${'passed' if results[0].path_accuracy.failed_paths == 0 else 'failed'}" >
+                     ${"Pass" if results[0].path_accuracy.failed_paths == 0 else "Fail"}
+                </td>
+            </tr>
+            <tr py:if="'path_accuracy' in results[0]">
+                <td class="vertical_header_th">Max path accuracy error:</td>
+                <td>${"%s" % results[0].path_accuracy.max_input_error} mm</td>
+                <td>${"%s" % results[1].settings['maxpathinputerror']} mm</td>
+                <td class="${'passed' if results[1].settings['maxposerror'] >= results[0].path_accuracy.max_input_error else 'failed'}" >
+                     ${"Pass" if results[1].settings['maxposerror'] >= results[0].path_accuracy.max_input_error else "Fail"}
+                </td>
+            </tr>
+        </table>
+
+        <h3>Path Length</h3>
+
+        <table class="datatable test_verdicts">
+            <tr>
+                <th></th>
+                <th>Value</th>
+                <th>Maximum allowed</th>
+                <th>Pass/Fail</th>
+            </tr>
+            <tr py:if="'path_length_comparison' in results[0]">
+                <td class="vertical_header_th">Failed lines</td>
+                <td>${results[0].path_length_comparison.failed_paths} / ${results[0].path_length_comparison.failed_paths + results[0].path_length_comparison.passed_paths}</td>
+                <td>0</td>
+                <td class="${'passed' if results[0].path_length_comparison.failed_paths == 0 else 'failed'}" >
+                     ${"Pass" if results[0].path_length_comparison.failed_paths == 0 else "Fail"}
+                </td>
+            </tr>
+            <tr py:if="'path_length_comparison' in results[0]">
+                <td class="vertical_header_th">Max path length error:</td>
+                <td>${"%s" % results[0].path_length_comparison.max_panel_length_error} mm</td>
+                <td>± ${"%s" % results[1].settings['maxlengtherror']} mm</td>
+                <td class="${'passed' if results[0].path_length_comparison.verdict else 'failed'}" >
+                     ${"Pass" if results[0].path_length_comparison.verdict else "Fail"}
+                </td>
+            </tr>
+            <tr py:if="'path_length_comparison' in results[0]">
+                <td class="vertical_header_th">Max path length error (%):</td>
+                <td>${"%s" % results[0].path_length_comparison.max_panel_percentage_length_error} %</td>
+                <td>${"%s" % results[1].settings['maxpercentagelengtherror']} %</td>
+                <td class="${'passed' if results[1].settings['maxpercentagelengtherror'] > results[0].path_length_comparison.max_panel_percentage_length_error else 'failed'}" >
+                     ${"Pass" if results[1].settings['maxpercentagelengtherror'] > results[0].path_length_comparison.max_panel_percentage_length_error else "Fail"}
+                </td>
+            </tr>
+        </table>
+
+        <h3>Curved Path Linearity</h3>
+
+        <table class="datatable test_verdicts">
+            <tr>
+                <th></th>
+                <th>Value</th>
+                <th>Maximum allowed</th>
+                <th>Pass/Fail</th>
+            </tr>
+            <tr py:if="'curved_path_linearity' in results[0] and results[0].curved_path_linearity is not None">
+                <td class="vertical_header_th">Failed lines</td>
+                <td>${results[0].curved_path_linearity.failed_paths} / ${results[0].curved_path_linearity.failed_paths + results[0].curved_path_linearity.passed_paths}</td>
+                <td>0</td>
+                <td class="${'passed' if results[0].curved_path_linearity.failed_paths == 0 else 'failed'}" >
+                     ${"Pass" if results[0].curved_path_linearity.failed_paths == 0 else "Fail"}
+                </td>
+            </tr>
+            <tr py:if="'curved_path_linearity' in results[0] and results[0].curved_path_linearity is not None">
+                <td class="vertical_header_th">Max linearity error:</td>
+                <td>${"%s" % results[0].curved_path_linearity.max_input_error} mm</td>
+                <td>${"%s" % results[1].settings['maxpathinputerror']} mm</td>
+                <td class="${'passed' if results[1].settings['maxposerror'] >= results[0].curved_path_linearity.max_input_error else 'failed'}" >
+                     ${"Pass" if results[1].settings['maxposerror'] >= results[0].curved_path_linearity.max_input_error else "Fail"}
+                </td>
+            </tr>
+            <!--span py:if="results[0].device_level == False">
+                <tr py:if="'curved_path_linearity' in results[0] and results[0].curved_path_linearity is not None">
+                    <td class="vertical_header_th">Max latency:</td>
+                    <td>${"%s" % results[0].curved_path_linearity.max_latency} ms</td>
+                    <td>${"%s" % results[1].settings['maxlatencyerror']} ms</td>
+                    <td class="${'passed' if results[1].settings['maxlatencyerror'] >= results[0].curved_path_linearity.max_latency else 'failed'}" >
+                         ${"Pass" if results[1].settings['maxlatencyerror'] >= abs(results[0].curved_path_linearity.max_latency) else "Fail"}
+                    </td>
+                </tr>
+                <tr py:if="'curved_path_linearity' in results[0] and results[0].curved_path_linearity is not None">
+                    <td class="vertical_header_th">Min latency:</td>
+                    <td>${"%s" % results[0].curved_path_linearity.min_latency} ms</td>
+                    <td>${"%s" % results[1].settings['maxlatencyerror']} ms</td>
+                    <td class="${'passed' if results[1].settings['maxlatencyerror'] >= results[0].curved_path_linearity.min_latency else 'failed'}" >
+                        ${"Pass" if results[1].settings['maxlatencyerror'] >= abs(results[0].curved_path_linearity.min_latency) else "Fail"}
+                    </td>
+                </tr>
+                <tr py:if="'curved_path_linearity' in results[0] and results[0].curved_path_linearity is not None">
+                    <td class="vertical_header_th">Average latency:</td>
+                    <td>${"%s" % results[0].curved_path_linearity.average_latency} ms</td>
+                    <td>${"%s" % results[1].settings['maxlatencyerror']} ms</td>
+                    <td class="${'passed' if results[1].settings['maxlatencyerror'] >= results[0].curved_path_linearity.average_latency else 'failed'}" >
+                         ${"Pass" if results[1].settings['maxlatencyerror'] >= abs(results[0].curved_path_linearity.average_latency) else "Fail"}
+                    </td>
+                </tr>
+                <tr py:if="'curved_path_linearity' in results[0] and results[0].curved_path_linearity is not None">
+                    <td class="vertical_header_th">Median latency:</td>
+                    <td>${"%s" % results[0].curved_path_linearity.median_latency} ms</td>
+                    <td>${"%s" % results[1].settings['maxlatencyerror']} ms</td>
+                    <td class="${'passed' if results[1].settings['maxlatencyerror'] >= results[0].curved_path_linearity.median_latency else 'failed'}" >
+                         ${"Pass" if results[1].settings['maxlatencyerror'] >= abs(results[0].curved_path_linearity.median_latency) else "Fail"}
+                    </td>
+                </tr>
+            </span-->
+
+        </table>
+
+            <h3>Proximity of Reported Positions to Robot Position</h3>
+
+        <table class="datatable test_verdicts">
+            <tr>
+                <th></th>
+                <th>Value</th>
+                <th>Maximum allowed</th>
+                <th>Pass/Fail</th>
+            </tr>
+            <tr py:if="'reported_pos_proximity_to_robot_pos' in results[0] and results[0].reported_pos_proximity_to_robot_pos is not None">
+                <td class="vertical_header_th">Failed lines</td>
+                <td>${results[0].reported_pos_proximity_to_robot_pos.failed_paths} / ${results[0].reported_pos_proximity_to_robot_pos.failed_paths + results[0].reported_pos_proximity_to_robot_pos.passed_paths}</td>
+                <td>0</td>
+                <td class="${'passed' if results[0].reported_pos_proximity_to_robot_pos.failed_paths == 0 else 'failed'}" >
+                     ${"Pass" if results[0].reported_pos_proximity_to_robot_pos.failed_paths == 0 else "Fail"}
+                </td>
+            </tr>
+            <tr py:if="'reported_pos_proximity_to_robot_pos' in results[0] and results[0].reported_pos_proximity_to_robot_pos is not None">
+                <td class="vertical_header_th">Max offset error:</td>
+                <td>${"%s" % results[0].reported_pos_proximity_to_robot_pos.max_input_error} mm</td>
+                <td>${"%s" % results[1].settings['maxoffseterror']} mm</td>
+                <td class="${'passed' if results[1].settings['maxoffseterror'] >= results[0].reported_pos_proximity_to_robot_pos.max_input_error else 'failed'}" >
+                     ${"Pass" if results[1].settings['maxoffseterror'] >= results[0].reported_pos_proximity_to_robot_pos.max_input_error else "Fail"}
+                </td>
+            </tr>
+            <!--span py:if="results[0].device_level == False">
+                <tr py:if="'reported_pos_proximity_to_robot_pos' in results[0] and results[0].reported_pos_proximity_to_robot_pos is not None">
+                    <td class="vertical_header_th">Max latency:</td>
+                    <td>${"%s" % results[0].reported_pos_proximity_to_robot_pos.max_latency} ms</td>
+                    <td>${"%s" % results[1].settings['maxlatencyerror']} ms</td>
+                    <td class="${'passed' if results[1].settings['maxlatencyerror'] >= abs(results[0].reported_pos_proximity_to_robot_pos.max_latency) else 'failed'}" >
+                         ${"Pass" if results[1].settings['maxlatencyerror'] >= abs(results[0].reported_pos_proximity_to_robot_pos.max_latency) else "Fail"}
+                    </td>
+                </tr>
+                <tr py:if="'reported_pos_proximity_to_robot_pos' in results[0] and results[0].reported_pos_proximity_to_robot_pos is not None">
+                    <td class="vertical_header_th">Min latency:</td>
+                    <td>${"%s" % results[0].reported_pos_proximity_to_robot_pos.min_latency} ms</td>
+                    <td>${"%s" % results[1].settings['maxlatencyerror']} ms</td>
+                    <td class="${'passed' if results[1].settings['maxlatencyerror'] >= abs(results[0].reported_pos_proximity_to_robot_pos.min_latency) else 'failed'}" >
+                        ${"Pass" if results[1].settings['maxlatencyerror'] >= abs(results[0].reported_pos_proximity_to_robot_pos.min_latency) else "Fail"}
+                    </td>
+                </tr>
+                <tr py:if="'reported_pos_proximity_to_robot_pos' in results[0] and results[0].reported_pos_proximity_to_robot_pos is not None">
+                    <td class="vertical_header_th">Average latency:</td>
+                    <td>${"%s" % results[0].reported_pos_proximity_to_robot_pos.average_latency} ms</td>
+                    <td>${"%s" % results[1].settings['maxlatencyerror']} ms</td>
+                    <td class="${'passed' if results[1].settings['maxlatencyerror'] >= abs(results[0].reported_pos_proximity_to_robot_pos.average_latency) else 'failed'}" >
+                         ${"Pass" if results[1].settings['maxlatencyerror'] >= abs(results[0].reported_pos_proximity_to_robot_pos.average_latency) else "Fail"}
+                    </td>
+                </tr>
+                <tr py:if="'reported_pos_proximity_to_robot_pos' in results[0] and results[0].reported_pos_proximity_to_robot_pos is not None">
+                    <td class="vertical_header_th">Median latency:</td>
+                    <td>${"%s" % results[0].reported_pos_proximity_to_robot_pos.median_latency} ms</td>
+                    <td>${"%s" % results[1].settings['maxlatencyerror']} ms</td>
+                    <td class="${'passed' if results[1].settings['maxlatencyerror'] >= abs(results[0].reported_pos_proximity_to_robot_pos.median_latency) else 'failed'}" >
+                         ${"Pass" if results[1].settings['maxlatencyerror'] >= abs(results[0].reported_pos_proximity_to_robot_pos.median_latency) else "Fail"}
+                    </td>
+                </tr>
+            </span-->
+
+        </table>
+
+        <!-- Preview images -->
+        <span py:if="'swipe_accuracy' in results[0]">
+          <div py:for="img in results[0].swipe_accuracy.images" class="preview">
+           <a href="${img[1]}">
+                <img src="${img[0]}" alt="Preview image"/>
+            </a>
+          </div>
+        </span>
+    
+        <span py:if="'path_accuracy' in results[0]">
+          <div py:for="img in results[0].path_accuracy.images" class="preview">
+            <a href="${img[1]}">
+                <img src="${img[0]}" alt="Preview image"/>
+            </a>
+          </div>
+        </span>
+
+        <span py:if="'curved_path_linearity' in results[0] and results[0].curved_path_linearity is not None">
+          <div py:for="img in results[0].curved_path_linearity.images" class="preview">
+            <a href="${img[1]}">
+                <img src="${img[0]}" alt="Preview image"/>
+            </a>
+          </div>
+        </span>
+
+        <span py:if="'reported_pos_proximity_to_robot_pos' in results[0] and results[0].reported_pos_proximity_to_robot_pos is not None">
+          <div py:for="img in results[0].reported_pos_proximity_to_robot_pos.images" class="preview">
+            <a href="${img[1]}">
+                <img src="${img[0]}" alt="Preview image"/>
+            </a>
+          </div>
+        </span>
+        
+        <h2>Path Accuracy Analysis</h2>
+            <div py:if="'swipe_accuracy' in results[0]">
+
+                <div class="dtable no_print">
+                    <div class="dtable_row subplot_selector">
+                        <div class="dtable_header narrow_cell">Toggle:
+                        </div><div class="dtable_header narrow_cell subplot_button"><button class="all_lines_button">All</button>
+                        </div><div class="dtable_header narrow_cell subplot_button"><button class="failed_lines_button">Failed</button>
+                        </div><div class="dtable_header narrow_cell subplot_button"><button class="passed_lines_button">Passed</button></div>
+                    </div>
+                </div>
+
+                <div class="dtable subplot_table">
+                    <div class="dtable_header_row">
+                        <div class="dtable_header">Path ID
+                        </div><div class="dtable_header">Max input error
+                        </div><div class="dtable_header">Pass/Fail
+                        </div><div class="dtable_header no_print">Detailed plot</div>
+                    </div>
+                    <div py:for="id, path in results[0].swipe_accuracy.paths.items()" class="dtable_row plot_header">
+                        <div class="dtable_cell">${id}
+                        </div>
+                        <div class="dtable_cell"> ${"%s mm" % path.max_input_error if path.max_input_error is not None else "N/A"}
+                        </div>
+                        <div class="dtable_cell ${'passed' if path.verdict else 'failed'}"> ${'Pass' if path.verdict else 'Fail'}
+                        </div>
+                        <div class="dtable_cell no_print"><button type="button" class="show_plot">Show/Hide</button>
+                        </div>
+
+                        <div class="plot" onclick="location.href='${path.images[1]}';" style="cursor: pointer" data-src="${path.images[0]}"/>
+                        <div class="plot" onclick="location.href='${path.images[3]}';" style="cursor: pointer" data-src="${path.images[2]}"/>
+                        <div class="plot" onclick="location.href='${path.images[5]}';" style="cursor: pointer" data-src="${path.images[4]}"/>
+
+                        </div>
+                </div>
+
+            </div>
+
+            <h2>Path Accuracy Analysis</h2>
+            <div py:if="'path_accuracy' in results[0]">
+
+                <div class="dtable no_print">
+                    <div class="dtable_row subplot_selector">
+                        <div class="dtable_header narrow_cell">Toggle:
+                        </div><div class="dtable_header narrow_cell subplot_button"><button class="all_lines_button">All</button>
+                        </div><div class="dtable_header narrow_cell subplot_button"><button class="failed_lines_button">Failed</button>
+                        </div><div class="dtable_header narrow_cell subplot_button"><button class="passed_lines_button">Passed</button></div>
+                    </div>
+                </div>
+
+                <div class="dtable subplot_table">
+                    <div class="dtable_header_row">
+                        <div class="dtable_header">Path ID
+                        </div><div class="dtable_header">Max input error
+                        </div><div class="dtable_header">Pass/Fail
+                        </div><div class="dtable_header no_print">Detailed plot</div>
+                    </div>
+                    <div py:for="id, path in results[0].path_accuracy.paths.items()" class="dtable_row plot_header">
+                        <div class="dtable_cell">${id}
+                        </div>
+                        <div class="dtable_cell"> ${"%s mm" % path.max_input_error if path.max_input_error is not None else "N/A"}
+                        </div>
+                        <div class="dtable_cell ${'passed' if path.verdict else 'failed'}"> ${'Pass' if path.verdict else 'Fail'}
+                        </div>
+                        <div class="dtable_cell no_print"><button type="button" class="show_plot">Show/Hide</button>
+                        </div>
+
+                        <div class="plot" onclick="location.href='${path.images[1]}';" style="cursor: pointer" data-src="${path.images[0]}"/>
+                        <div class="plot" onclick="location.href='${path.images[3]}';" style="cursor: pointer" data-src="${path.images[2]}"/>
+                        <div class="plot" onclick="location.href='${path.images[5]}';" style="cursor: pointer" data-src="${path.images[4]}"/>
+
+                        </div>
+                </div>
+
+            </div>
+
+            <br />
+
+            <h2>Path Length Analysis</h2>
+            <div py:if="'path_length_comparison' in results[0]">
+
+                <div class="dtable no_print">
+                    <div class="dtable_row subplot_selector">
+                        <div class="dtable_header narrow_cell">Toggle:
+                        </div><div class="dtable_header narrow_cell subplot_button"><button class="all_lines_button">All</button>
+                        </div><div class="dtable_header narrow_cell subplot_button"><button class="failed_lines_button">Failed</button>
+                        </div><div class="dtable_header narrow_cell subplot_button"><button class="passed_lines_button">Passed</button></div>
+                    </div>
+                </div>
+
+                <div class="dtable subplot_table">
+                    <div class="dtable_header_row">
+                        <div class="dtable_header narrow_cell">Path ID
+                        </div><div class="dtable_header">Length error
+                        </div><div class="dtable_header">Length error (%)
+                        </div><div class="dtable_header narrow_cell">Pass/Fail
+                        </div><div class="dtable_header no_print">Detailed plot</div>
+                    </div>
+                    <div py:for="id, path in results[0].path_length_comparison.paths.items()" class="dtable_row plot_header">
+                        <div class="dtable_cell narrow_cell">${id}
+                        </div>
+                        <div class="dtable_cell"> ${"%s mm" % path.error if path.error is not None else "N/A"}
+                        </div>
+                        <div class="dtable_cell"> ${"%s " % path.percentage_error if path.percentage_error is not None else "N/A"} %
+                        </div>
+                        <div class="dtable_cell narrow_cell ${'passed' if path.verdict else 'failed'}"> ${'Pass' if path.verdict else 'Fail'}
+                        </div>
+                        <div class="dtable_cell no_print"><button type="button" class="show_plot">Show/Hide</button>
+                        </div>
+                        <div class="plot" onclick="location.href='${path.images[1]}';" style="cursor: pointer" data-src="${path.images[0]}"/>
+
+                        </div>
+
+                </div>
+
+            </div>
+
+            <br />
+
+                <h2>Curved Path Linearity Analysis</h2>
+            <div py:if="'curved_path_linearity' in results[0] and results[0].curved_path_linearity is not None">
+
+                <div class="dtable no_print">
+                    <div class="dtable_row subplot_selector">
+                        <div class="dtable_header narrow_cell">Toggle:
+                        </div><div class="dtable_header narrow_cell subplot_button"><button class="all_lines_button">All</button>
+                        </div><div class="dtable_header narrow_cell subplot_button"><button class="failed_lines_button">Failed</button>
+                        </div><div class="dtable_header narrow_cell subplot_button"><button class="passed_lines_button">Passed</button></div>
+                    </div>
+                </div>
+
+                <div class="dtable subplot_table">
+                    <div class="dtable_header_row">
+                        <div class="dtable_header narrow_cell">Path ID
+                        </div><div class="dtable_header">Max input error
+                        </div>
+                        <span py:if="results[0].device_level == False">
+                            <div class="dtable_header">Median latency</div>
+                        </span>
+                        <div class="dtable_header narrow_cell">Pass/Fail
+                        </div><div class="dtable_header no_print">Detailed plot</div>
+                    </div>
+                    <div py:for="id, path in results[0].curved_path_linearity.paths.items()" class="dtable_row plot_header">
+                        <div class="dtable_cell narrow_cell">${id}
+                        </div>
+                        <div class="dtable_cell"> ${"%s mm" % path.max_input_error if path.max_input_error is not None else "N/A"}
+                        </div>
+                        <span py:if="results[0].device_level == False">
+                            <div class="dtable_cell"> ${path.median_latency} ms</div>
+                        </span>
+                        <div class="dtable_cell narrow_cell ${'passed' if path.verdict else 'failed'}"> ${'Pass' if path.verdict else 'Fail'}
+                        </div>
+                        <div class="dtable_cell no_print"><button type="button" class="show_plot">Show/Hide</button>
+                        </div>
+
+                        <div class="plot" onclick="location.href='${path.images[1]}';" style="cursor: pointer" data-src="${path.images[0]}"/>
+                        <div class="plot" onclick="location.href='${path.images[3]}';" style="cursor: pointer" data-src="${path.images[2]}"/>
+
+                        </div>
+
+                </div>
+
+            </div>
+
+            <br />
+
+            <h2>Proximity of Reported Positions to Robot Position</h2>
+            <div py:if="'reported_pos_proximity_to_robot_pos' in results[0] and results[0].reported_pos_proximity_to_robot_pos is not None">
+
+                <div class="dtable no_print">
+                    <div class="dtable_row subplot_selector">
+                        <div class="dtable_header narrow_cell">Toggle:
+                        </div><div class="dtable_header narrow_cell subplot_button"><button class="all_lines_button">All</button>
+                        </div><div class="dtable_header narrow_cell subplot_button"><button class="failed_lines_button">Failed</button>
+                        </div><div class="dtable_header narrow_cell subplot_button"><button class="passed_lines_button">Passed</button></div>
+                    </div>
+                </div>
+
+                <div class="dtable subplot_table">
+                    <div class="dtable_header_row">
+                        <div class="dtable_header narrow_cell">Path ID
+                        </div><div class="dtable_header">Max offset error
+                        </div>
+                        <span py:if="results[0].device_level == False">
+                            <div class="dtable_header">Median latency</div>
+                        </span>
+                        <div class="dtable_header narrow_cell">Pass/Fail
+                        </div><div class="dtable_header no_print">Detailed plot</div>
+                    </div>
+                    <div py:for="id, path in results[0].reported_pos_proximity_to_robot_pos.paths.items()" class="dtable_row plot_header">
+                        <div class="dtable_cell narrow_cell">${id}
+                        </div>
+                        <div class="dtable_cell"> ${"%s mm" % path.max_input_error if path.max_input_error is not None else "N/A"}
+                        </div>
+                        <span py:if="results[0].device_level == False">
+                            <div class="dtable_cell"> ${path.median_latency} ms</div>
+                        </span>
+                        <div class="dtable_cell narrow_cell ${'passed' if path.verdict else 'failed'}"> ${'Pass' if path.verdict else 'Fail'}
+                        </div>
+                        <div class="dtable_cell no_print"><button type="button" class="show_plot">Show/Hide</button>
+                        </div>
+
+                        <div class="plot" onclick="location.href='${path.images[1]}';" style="cursor: pointer" data-src="${path.images[0]}"/>
+
+                        </div>
+
+                </div>
+
+            </div>
+            <br />
+            <br />
+        </div>
+
+
+    <div class='row'><hr style="width: 100%; color: black; height: 4px; background-color:black;" /></div>
+
+    </div>

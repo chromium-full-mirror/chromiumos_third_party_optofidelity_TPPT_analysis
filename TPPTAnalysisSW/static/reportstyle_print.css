@@ -1,0 +1,453 @@
+h1, h2, h3 {
+	page-break-before: auto;
+	font-size: 14px;
+}
+
+table.headingtable {
+	border-width: 0;
+	border-spacing: 1px;
+	border-style: double;
+	border-color: black;
+	border-collapse: collapse;
+	background-color: #ffffff;
+	width: 100%;
+	font-size:1.5em;
+	font-weight:700;
+	color:#595959;
+}
+table.headingtable th {
+	border-width: 0px;
+	padding: 0px;
+	border-style: none;
+	border-color: black;
+	background-color: #ffffff;
+	-moz-border-radius: 0px 0px 0px 0px;
+
+}
+table.headingtable td {
+	border-width: 0px;
+	padding: 10px;
+	border-style: none;
+	border-color: black;
+	background-color: #fff;
+	text-align: center;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+table.constanttable {
+	border-width: 0px;
+	border-spacing: 0px;
+	border-style: none;
+	border-color: black;
+	border-collapse: separate;
+	background-color: white;
+	width: 100%;
+}
+table.constanttable th {
+	border-width: 0px;
+	padding: 2px;
+	border-style: solid;
+	border-color: black;
+	background-color: white;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+table.constanttable td {
+	border-width: 0px;
+	padding: 2px;
+	border-style: solid;
+	border-color: black;
+
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+
+table.datatable {
+	border-width: 2;
+	border-spacing: 0px;
+	border-style: double;
+	border-color: black;
+	border-collapse: collapse;
+	background-color: white;
+	margin-bottom: 10px;
+	page-break-inside: avoid;
+}
+table.datatable th {
+	color: #000000;
+	border-width: 1px;
+	border-style: solid;
+	border-color: black;
+	background-color: #349AD8 !important;
+	font-size: 0.9em;
+	-moz-border-radius: 0px 0px 0px 0px;
+	text-align: center;
+	padding: 5px 5px;
+	width: 200px;
+}
+table.datatable th.note {
+	border-width: 0px;
+	border-style: solid;
+	border-color: black;
+	background-color: #349AD8;
+	-moz-border-radius: 0px 0px 0px 0px;
+	width: 10%;
+}
+table.datatable td {
+	border-width: 1px;
+	border-style: inset;
+	border-color: black;
+
+	vertical-align: top;
+	text-align: center;
+	font-size: 0.8em;
+	-moz-border-radius: 0px 0px 0px 0px;
+
+	padding: 5px 5px;
+}
+table.datatable td.name {
+	border-width: 0;
+	border-style: inset;
+	border-color: black;
+
+	text-align: left;
+	/*text-indent: 5%;*/
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+table.subdatatable {
+	border-width: 0px;
+	border-spacing: 0px;
+	border-style: hidden;
+	border-color: black;
+	border-collapse: collapse;
+	background-color: white;
+	width: 100%;
+}
+table.subdatatable th, th.subdatatable {
+	border-width: 0;
+	padding: 2px;
+	border-style: inset;
+	border-color: black;
+	background-color: rgb(250, 240, 230);
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+table.subdatatable th.name {
+	border-width: 0;
+	padding: 2px;
+	border-style: inset;
+	border-color: black;
+
+	-moz-border-radius: 0px 0px 0px 0px;
+	width: 40%;
+}
+table.subdatatable td {
+	border-width: 0;
+	padding: 2px;
+	border-style: inset;
+	border-color: black;
+
+	text-align: center;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+table.subdatatable td.name {
+	border-width: 0;
+	padding: 2px;
+	border-style: inset;
+	border-color: black;
+
+	text-align: left;
+	/*text-indent: 5%;*/
+	padding-left:15px;
+	-moz-border-radius: 0px 0px 0px 0px;
+	width: 40%;
+}
+table.imagetable {
+	border-width: thick;
+	border-spacing: 1px;
+	border-style: double;
+	border-color: black;
+	border-collapse: collapse;
+	background-color: white;
+}
+table.imagetable th {
+	border-width: 2px;
+	padding: 0px;
+	border-style: solid;
+	border-color: black;
+	background-color: #349AD8;
+	-moz-border-radius: 0px 0px 0px 0px;
+	color:#fff;
+}
+table.imagetable td {
+	border-width: thin;
+	padding: 2px;
+	border-style: inset;
+	border-color: black;
+
+	text-align: center;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+table.listtable {
+	border-width: thick;
+	border-spacing: 1px;
+	border-style: double;
+	border-color: black;
+	border-collapse: collapse;
+	background-color: white;
+
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+table.listtable th.index {
+	border-width: 2px;
+	padding: 0px;
+	border-style: solid;
+	border-color: black;
+	background-color: rgb(250, 240, 230);
+	-moz-border-radius: 0px 0px 0px 0px;
+	width: 20%;
+}
+table.listtable th.list {
+	border-width: 2px;
+	padding: 0px;
+	border-style: solid;
+	border-color: black;
+	background-color: rgb(250, 240, 230);
+	-moz-border-radius: 0px 0px 0px 0px;
+	width: 90%;
+}
+table.listtable td {
+	border-width: thin;
+	padding: 4px;
+	border-style: solid;
+	border-color: black;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+ul.tabbed {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+li.tabbednav {
+	display: block;
+	float:left;
+	background: white;
+	margin: 0px 0.5em -2px 0px;
+	border-top-width: 2px;
+	border-right-width: 2px;
+	border-bottom-width: 0px;
+	border-left-width: 2px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #349AD8;
+	border-right-color: #349AD8;
+	border-bottom-color: #349AD8;
+	border-left-color: #349AD8;
+	//border-radius: 5px 5px 0px 0px;
+}
+li.tabbedsel {
+	display: block;
+	float:left;
+	border: solid 2px #349AD8;
+	background-color: #349AD8;
+	margin: 0px 0.5em -2px 0px;
+	//border-radius: 5px 5px 0px 0px;
+}
+a.tabbednav {
+	padding: 0px 5px;
+	padding-left:5px;
+	background-color: white;
+	color: #349AD8;
+	text-decoration:none;
+	font-family: 'Open Sans Condensed', sans-serif;
+	//border-radius: 5px 5px 0px 0px;
+
+}
+a.tabbedsel {
+	padding: 0px 5px;
+	padding-left:5px;
+	background-color: #349AD8;
+	color:#FFF;
+	text-decoration:none;
+	font-family: 'Open Sans Condensed', sans-serif;
+	//border-radius: 5px 5px 0px 0px;
+}
+ul.subtabbed {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	padding-top: 0.5em;
+	background-color: #349AD8
+	border-style: double;
+	border-width: 2px;
+}
+li.subtabbednav {
+	display: inline;
+	border-top-width: 2px;
+	border-right-width: 2px;
+	border-bottom-width: 0px;
+	border-left-width: 2px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #349AD8;
+	border-right-color: #349AD8;
+	border-bottom-color: #349AD8;
+	border-left-color: #349AD8;
+	margin: 0 0.5em 0 0;
+}
+ul.subtabbed li.tabbedsel {
+	display: inline;
+	border: solid;
+	border-width: 2px 2px 0 2px;
+	background: white;
+	margin: 0 0.5em 0 0;
+}
+a.subtabbednav {
+	padding: 0 1em;
+	background-color: white;
+	color:#349AD8;
+	text-decoration:none;
+}
+ul.subtabbed a.tabbedsel {
+	padding: 0 1em;
+	background-color: white;
+}
+div.content {
+	border: solid;
+	width: 100%;
+	border-width: 0 0 0 0;
+	clear: both;
+	margin: 0px auto;
+}
+
+div.header {
+	width: 96%;
+}
+
+p.version {
+	text-decoration:none;
+	font-family: 'Open Sans Condensed', sans-serif;
+	font-weight: bold;
+}
+
+.dtable_header {
+	float: left;
+	color: #000000;
+
+	border-width: 0.5px;
+	border-style: solid;
+	border-color: #000000;
+	border-collapse: collapse;
+
+	background-color: #349AD8 !important;
+	-moz-border-radius: 0px 0px 0px 0px;
+
+	text-align: center;
+	font-weight: bold;
+	font-size: 0.9em;
+
+	padding: 3px 3px;
+}
+
+.wide_cell {
+	width: 140px;
+}
+
+.narrow_cell {
+	width: 80px;
+}
+
+.dtable_row {
+	clear: both;
+	min-height: 20px;
+}
+
+.dtable_cell {
+	float: left;
+	color: #121212;
+
+	border-width: 0.5px;
+	border-color: black;
+	border-style: solid;
+	border-collapse: collapse;
+
+	text-align: center;
+	padding: 3px 3px;
+	font-size: 0.8em;
+	min-height: 16px;
+}
+
+.dtable_radio_cell {
+	float: left;
+
+	border-width: 1px;
+	border-color: black;
+	border-style: solid;
+
+	padding: 5px 15px;
+	display: none;
+}
+
+.plot_header {
+	border-width: 0;
+	border-style: inset;
+	border-color: black;
+
+	vertical-align: top;
+	text-align: center;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+
+.plot {
+	clear: both;
+	display: none;
+	background-color: #565656;
+}
+
+.clear {
+	clear: both;
+}
+
+.no_show_plot {
+	color: #cccccc;
+}
+
+.show_plot {
+	cursor: pointer;
+}
+
+img {
+	page-break-inside: avoid;
+	max-width: 100%
+}
+
+#multifinger_swipe_image_area {
+	width: auto;
+}
+
+.dtable_row:nth-child(even) {background-color: #f0f0f0 !important;}
+.dtable_row:nth-child(odd) {background-color: #ffffff !important;}
+
+@media print {
+    .make-grid(sm);
+
+    .visible-xs {
+        .responsive-invisibility();
+    }
+
+    .hidden-xs {
+        .responsive-visibility();
+    }
+
+    .hidden-xs.hidden-print {
+        .responsive-invisibility();
+    }
+
+    .hidden-sm {
+        .responsive-invisibility();
+    }
+
+    .visible-sm {
+        .responsive-visibility();
+    }
+}

@@ -1,0 +1,582 @@
+table.headingtable {
+	border-width: 0;
+	border-spacing: 1px;
+	border-style: double;
+	border-color: black;
+	border-collapse: collapse;
+	background-color: #fff;
+	width: 100%;
+	font-size:1.5em;
+	font-weight:700;
+	color:#595959;
+}
+table.headingtable th {
+	border-width: 0px;
+	padding: 0px;
+	border-style: none;
+	border-color: black;
+	background-color: #fff;
+	-moz-border-radius: 0px 0px 0px 0px;
+
+}
+table.headingtable td {
+	border-width: 0px;
+	padding: 10px;
+	border-style: none;
+	border-color: black;
+	background-color: #fff;
+	text-align: center;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+table.constanttable {
+	border-width: 0px;
+	border-spacing: 0px;
+	border-style: none;
+	border-color: black;
+	border-collapse: separate;
+	background-color: white;
+	width: 100%;
+}
+table.constanttable th {
+	border-width: 0px;
+	padding: 2px;
+	border-style: solid;
+	border-color: black;
+	background-color: white;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+table.constanttable td {
+	border-width: 0px;
+	padding: 2px;
+	border-style: solid;
+	border-color: black;
+
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+
+table.datatable {
+	border-width: 0;
+	border-spacing: 0px;
+	border-style: double;
+	border-color: black;
+/*	border-collapse: collapse; */
+	background-color: white;
+
+	margin-bottom: 10px;
+}
+table.datatable th {
+	color: #FFFFFF;
+	border-width: 0px;
+	border-style: solid;
+	border-color: black;
+	background-color: #349AD8;
+	-moz-border-radius: 0px 0px 0px 0px;
+	text-align: center;
+	padding:5px 15px;
+	width: 200px;
+}
+table.datatable th.note {
+	width: 10%;
+}
+
+
+table.datatable th.id {
+    width: 50px;
+}
+
+table.datatable th.narrow {
+    width: 100px;
+}
+
+table.datatable th.datetime {
+    width: 170px;
+}
+
+table.datatable th.wide {
+    width: 280px;
+}
+
+table.datatable th.delete {
+    width: 80px;
+}
+
+
+table.datatable td {
+	border-width: 0;
+	border-style: inset;
+	border-color: black;
+
+	vertical-align: top;
+	text-align: center;
+	-moz-border-radius: 0px 0px 0px 0px;
+
+	padding:5px 15px;
+}
+table.datatable td.name {
+	border-width: 0;
+	border-style: inset;
+	border-color: black;
+
+	text-align: left;
+	/*text-indent: 5%;*/
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+table.subdatatable {
+	border-width: 0px;
+	border-spacing: 0px;
+	border-style: hidden;
+	border-color: black;
+	border-collapse: collapse;
+	background-color: white;
+	width: 100%;
+}
+table.subdatatable th, th.subdatatable {
+	border-width: 0;
+	padding: 2px;
+	border-style: inset;
+	border-color: black;
+	background-color: rgb(250, 240, 230);
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+table.subdatatable th.name {
+	border-width: 0;
+	padding: 2px;
+	border-style: inset;
+	border-color: black;
+
+	-moz-border-radius: 0px 0px 0px 0px;
+	width: 40%;
+}
+table.subdatatable td {
+	border-width: 0;
+	padding: 2px;
+	border-style: inset;
+	border-color: black;
+
+	text-align: center;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+table.subdatatable td.name {
+	border-width: 0;
+	padding: 2px;
+	border-style: inset;
+	border-color: black;
+
+	text-align: left;
+	/*text-indent: 5%;*/
+	padding-left:15px;
+	-moz-border-radius: 0px 0px 0px 0px;
+	width: 40%;
+}
+table.imagetable {
+	border-width: thick;
+	border-spacing: 1px;
+	border-style: double;
+	border-color: black;
+	border-collapse: collapse;
+	background-color: white;
+}
+table.imagetable th {
+	border-width: 2px;
+	padding: 0px;
+	border-style: solid;
+	border-color: black;
+	background-color: #349AD8;
+	-moz-border-radius: 0px 0px 0px 0px;
+	color:#fff;
+}
+table.imagetable td {
+	border-width: thin;
+	padding: 2px;
+	border-style: inset;
+	border-color: black;
+
+	text-align: center;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+
+table.listtable {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+table.listtable th.index {
+	border-width: 2px;
+	padding: 0px;
+	border-style: solid;
+	border-color: black;
+	background-color: rgb(250, 240, 230);
+	-moz-border-radius: 0px 0px 0px 0px;
+	width: 20%;
+}
+table.listtable th.list {
+	border-width: 2px;
+	padding: 0px;
+	border-style: solid;
+	border-color: black;
+	background-color: rgb(250, 240, 230);
+	-moz-border-radius: 0px 0px 0px 0px;
+	width: 90%;
+}
+table.listtable td {
+	padding: 4px;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+ul.tabbed {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+li.tabbednav {
+	display: block;
+	float:left;
+	background: white;
+	margin: 0px 0.5em -2px 0px;
+	border-top-width: 2px;
+	border-right-width: 2px;
+	border-bottom-width: 0px;
+	border-left-width: 2px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #349AD8;
+	border-right-color: #349AD8;
+	border-bottom-color: #349AD8;
+	border-left-color: #349AD8;
+	//border-radius: 5px 5px 0px 0px;
+}
+li.tabbedsel {
+	display: block;
+	float:left;
+	border: solid 2px #349AD8;
+	background-color: #349AD8;
+	margin: 0px 0.5em -2px 0px;
+	//border-radius: 5px 5px 0px 0px;
+}
+a.tabbednav {
+	padding: 0px 5px;
+	padding-left:5px;
+	background-color: white;
+	color: #349AD8;
+	text-decoration:none;
+	font-family: 'Open Sans Condensed', sans-serif;
+	//border-radius: 5px 5px 0px 0px;
+
+}
+a.tabbedsel {
+	padding: 0px 5px;
+	padding-left:5px;
+	background-color: #349AD8;
+	color:#FFF;
+	text-decoration:none;
+	font-family: 'Open Sans Condensed', sans-serif;
+	//border-radius: 5px 5px 0px 0px;
+}
+ul.subtabbed {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	padding-top: 0.5em;
+	background-color: #349AD8
+	border-style: double;
+	border-width: 2px;
+}
+li.subtabbednav {
+	display: inline;
+	border-top-width: 2px;
+	border-right-width: 2px;
+	border-bottom-width: 0px;
+	border-left-width: 2px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #349AD8;
+	border-right-color: #349AD8;
+	border-bottom-color: #349AD8;
+	border-left-color: #349AD8;
+	margin: 0 0.5em 0 0;
+}
+ul.subtabbed li.tabbedsel {
+	display: inline;
+	border: solid;
+	border-width: 2px 2px 0 2px;
+	background: white;
+	margin: 0 0.5em 0 0;
+}
+a.subtabbednav {
+	padding: 0 1em;
+	background-color: white;
+	color:#349AD8;
+	text-decoration:none;
+}
+ul.subtabbed a.tabbedsel {
+	padding: 0 1em;
+	background-color: white;
+}
+div.content {
+	border: solid;
+	width: 96%;
+	border-width: 0 0 0 0;
+	clear: both;
+	margin: 0px auto;
+}
+div.header {
+	width: 96%;
+}
+p.version {
+	text-decoration:none;
+	font-family: 'Open Sans Condensed', sans-serif;
+	font-weight: bold;
+}
+
+.dtable {
+    display: table;
+}
+
+.dtable_header {
+/*	float: left;*/
+    display: inline-block;
+	color:#fff;
+	border-width: 0px;
+	border-style: solid;
+	border-color: black;
+	background-color: #349AD8;
+	-moz-border-radius: 0px 0px 0px 0px;
+
+	text-align: center;
+	font-weight: bold;
+
+	padding: 5px;
+	width: 150px;
+	height: 30px;
+	overflow: hidden;
+}
+
+.dtable_row {
+    display: block;
+	min-height: 30px;
+	max-width: 1600px;
+	clear: both;
+	page-break-inside: avoid;
+
+	padding: 0px;
+	margin: 0px;
+}
+
+.dtable_header_row
+{
+    display: table-header-group;
+	min-height: 50px;
+	max-width: 16000px;
+	clear: both;
+
+	padding: 0px;
+	margin: 0px;
+    background-color: #349AD8
+}
+
+.dtable_mf_row {
+	max-width: 920px;
+}
+
+.dtable_row:nth-child(even) {background-color: #f0f0f0;}
+.dtable_row:nth-child(odd) {background-color: #ffffff;}
+
+.dtable_cell {
+/*	float: left;*/
+    display: inline-block;
+	text-align: center;
+	padding: 5px;
+	width: 150px;
+	max-height: 35px;
+	overflow: hidden;
+}
+
+.wide_cell {
+	width: 250px;
+}
+
+.narrow_cell {
+	width: 100px;
+}
+
+.dtable_radio_cell {
+	float: left;
+
+	padding: 5px;
+	width: 100px;
+	max-height: 30px;
+	overflow: hidden;
+}
+
+.plot_header {
+	border-width: 0;
+	border-style: inset;
+	border-color: black;
+	vertical-align: top;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+
+.plot {
+	clear: both;
+	display: none;
+}
+
+.grid_table {
+	width: 1020px;
+	height: auto;
+
+	border-width: 2;
+	border-color: #349AD8;
+	border-style: solid;
+}
+
+.grid_table_row {
+	clear: both;
+
+	width: 1020px;
+	height: 20px;
+}
+
+.grid_table_row:nth-child(even) {background: #f0f0f0;}
+.grid_table_row:nth-child(odd) {background: #ffffff;}
+
+.tap_cell {
+	float: left;
+	border-width: 1;
+	border-color: #349AD8;
+	border-style: solid;
+
+	font-size: 0.8em;
+	text-align: center;
+
+	height: 18px;
+}
+
+.tap_cell b {
+	color: #000000;
+	font-size: 1em;
+}
+
+.clear {
+	clear: both;
+}
+
+.button_base {
+    min-height: 20px;
+    padding: 5px;
+    margin: 0px;
+    border: 0px solid #246B96;
+
+    color: #ffffff;
+    background-color: #349AD8;
+
+    text-align: center;
+    font-weight: bold;
+}
+
+.label {
+    background-color: #349AD8;
+
+    font-weight: bold;
+}
+
+.button {
+    background-color: #38A8EC;
+    cursor: pointer;
+}
+
+.all_lines_button {
+	color: black;
+	font-weight: normal;
+}
+
+.passed_lines_button {
+	color: black;
+	font-weight: normal;
+}
+
+.failed_lines_button {
+	color: black;
+	font-weight: normal;
+}
+
+.no_show_plot {
+	color: #cccccc;
+	font-size: 1em;
+}
+
+.show_plot {
+	cursor: pointer;
+}
+
+/* Used in test session */
+
+.test_row:hover {
+  background-color: #A1C7F8;
+  cursor:pointer;
+}
+
+.editnotes {
+    text-decoration: underline;
+    font-size: smaller;
+    color: Blue;
+    cursor: pointer;
+}
+
+.editor {
+    resize: both;
+    display: none;
+    width: 100%;
+}
+
+#notes_save {
+    display:none;
+}
+
+/* Used in settings */
+
+.settings_table .setting_name {
+    min-width: 500px;
+}
+
+.settings_table .setting_input {
+    min-width: 50px;
+}
+
+
+/* Used in test session settings */
+
+.settings {
+    display: block;
+    padding-bottom: 5px;
+}
+
+.errormsg {
+    padding: 5px;
+    display: none;
+    border-style: solid;
+    border-color: Black;
+    background-color: #FFAAAA;
+    font-weight: bold;
+}
+
+.setting_value_input {
+    text-align: right;
+}
+
+input {
+    border: 0;
+}
+
+.setting_value_input.invalid {
+    background-color: #FFAAAA;
+}
+
+.preview {
+	page-break-inside: avoid;
+    display: block;
+    border-bottom: 10px;
+}

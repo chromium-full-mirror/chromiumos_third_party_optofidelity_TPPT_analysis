@@ -1,0 +1,59 @@
+    <div xmlns:py="http://genshi.edgewall.org/">
+
+    <table class="datatable test_verdicts">
+        <tr>
+            <th></th>
+            <th>Value</th>
+            <th>Maximum allowed</th>
+            <th>Pass/Fail</th>
+        </tr>
+        <tr>
+            <td class="vertical_header_th">Repeatability error X</td>
+            <td>${"%s" % max_x_repeatability_error} mm</td>
+            <td>${"%s" % settings['maxrepeaterror']} mm</td>
+            <td class="${'passed' if verdict_x=='Pass' else 'failed'}">$verdict_x</td>
+        </tr>
+        <tr>
+            <td class="vertical_header_th">Repeatability error Y</td>
+            <td>${"%s" % max_y_repeatability_error} mm</td>
+            <td>${"%s" % settings['maxrepeaterror']} mm</td>
+            <td class="${'passed' if verdict_y=='Pass' else 'failed'}">$verdict_y</td>
+        </tr>
+    </table>
+
+    <!-- Preview image -->
+    <div py:if="'noimages' not in kwargs" class="preview">
+      <a href="${detailed_figure}">
+        <img src="${figure}" width="800" height="600" alt="Preview image"/>
+      </a>
+    </div>
+
+        <!--! Preview table -->
+		<div class="dtable no_print">
+			<div class="dtable_row subplot_selector">
+		        <div class="dtable_header narrow_cell">Toggle:
+                </div><div class="dtable_header narrow_cell subplot_button"><button class="all_lines_button">All</button>
+                </div><div class="dtable_header narrow_cell subplot_button"><button class="failed_lines_button">Failed</button>
+                </div><div class="dtable_header narrow_cell subplot_button"><button class="passed_lines_button">Passed</button></div>
+            </div>
+        </div>
+
+		<div class="subplot_table dtable">
+			<div class="dtable_header_row">
+				<div class="dtable_header narrow_cell">Point ID
+                </div><div class="dtable_header narrow_cell">X
+                </div><div class="dtable_header narrow_cell">Y
+                </div><div class="dtable_header narrow_cell">Pass/Fail
+                </div><div class="dtable_header no_print">Detailed plot</div>
+			</div>
+			<div py:for="point_nbr, x_results, y_results, verdict, point_id in repeatability_errors" class="dtable_row plot_header">
+				<div class="dtable_cell narrow_cell">${point_nbr}
+                </div><div class="dtable_cell narrow_cell"> ${"%s mm" % x_results}
+                </div><div class="dtable_cell narrow_cell"> ${"%s mm" % y_results}
+                </div><div class="dtable_cell narrow_cell ${'passed' if verdict=='Pass' else 'failed'}"> ${verdict}
+                </div><div class="dtable_cell no_print"><button type="button" class="show_plot">Show/Hide</button>
+                </div><div class="plot" data-src="${pointPlots[point_nbr]}"/>
+			</div>
+
+		</div>
+     </div>

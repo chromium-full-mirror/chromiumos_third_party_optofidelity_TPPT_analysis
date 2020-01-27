@@ -1,0 +1,51 @@
+    <div xmlns:py="http://genshi.edgewall.org/">
+
+    <table class="datatable test_verdicts">
+        <tr>
+            <th class="wide"></th>
+            <th>Jitter</th>
+            <th>Maximum allowed</th>
+            <th class="Narrow">Pass/Fail</th>
+        </tr>
+        <tr>
+            <td class="vertical_header_th">Max Jitter</td>
+            <td>${"N/A" if results.max_jitter is None else "%s mm" % results.max_jitter}</td>
+            <td>${"%s" % settings['maxstationaryjitter']} mm</td>
+            <td class="${'passed' if results.verdict == 'Pass' else 'failed'}" >${results.verdict}</td>
+        </tr>
+    </table>
+
+    <div py:if="'noimages' not in kwargs" class="preview">
+      <a href="${detailed_figure}">
+        <img src="${figure}" width="800" height="600" alt="Preview image"/>
+      </a>
+    </div>
+
+        <!--! Preview table -->
+		<div class="dtable no_print">
+			<div class="dtable_row subplot_selector">
+		        <div class="dtable_header narrow_cell">Toggle:
+                </div><div class="dtable_header narrow_cell subplot_button"><button class="all_lines_button">All</button>
+                </div><div class="dtable_header narrow_cell subplot_button"><button class="failed_lines_button">Failed</button>
+                </div><div class="dtable_header narrow_cell subplot_button"><button class="passed_lines_button">Passed</button></div>
+            </div>
+        </div>
+		<div class="dtable subplot_table">
+			<div class="dtable_header_row">
+				<div class="dtable_header narrow_cell">Point ID
+                </div><div class="dtable_header narrow_cell">Jitter
+                </div><div class="dtable_header">Maximum allowed
+                </div><div class="dtable_header narrow_cell">Pass/Fail
+                </div><div class="dtable_header no_print">Detailed plot</div>
+			</div>
+			<div py:for="point in results.points" class="dtable_row plot_header">
+				<div class="dtable_cell narrow_cell">${point[0]}
+                </div><div class="dtable_cell narrow_cell"> ${"%s mm" % point[1] if point[1] is not None else "N/A"}
+                </div><div class="dtable_cell"> ${"%s" % settings['maxstationaryjitter']} mm
+                </div><div class="dtable_cell narrow_cell ${'passed' if point[2]=='Pass' else 'failed'}"> ${point[2]}
+                </div><div py:if="point[3] is not None" class="dtable_cell no_print"><button type="button" class="show_plot">Show/Hide</button>
+                </div><div py:if="point[3] is not None" class="plot" data-src="${point[3]}"/>
+			</div>
+        </div>
+
+    </div>

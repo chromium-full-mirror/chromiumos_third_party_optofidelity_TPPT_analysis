@@ -1,0 +1,32 @@
+<html xmlns:py="http://genshi.edgewall.org/" xmlns:xi="http://www.w3.org/2001/XInclude">
+<head>
+	<title>Summary of tests: ${operator} ${starttime}, test session ID: ${id}</title>
+	<meta http-equiv="Pragma" content="no-cache"/>
+	<script type="text/javascript" src="/static/script/libs/jquery-2.1.0.min.js"/>
+	<script type="text/javascript" src="/static/script/test_summary.js"></script>
+	<link rel="shortcut icon" href="/static/img/favicon.ico"/>
+	<link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="/static/reportstyle.css" media="screen"/>
+	<link rel="stylesheet" type="text/css" href="/static/reportstyle_print.css" media="print"/>
+	<link rel="stylesheet" type="text/css" href="/static/daddy.css" />
+	<link rel="stylesheet" type="text/css" href="/static/style.css" />
+</head>
+<body>
+	<div class="report">
+	<div id="Main" class="content" style="display: block; visibility: visible;">
+	    <div><a href="/"><img src="/static/img/logo.jpg"/></a><p class="version">Analysis software version ${version.simple}</p></div>
+	    <span class="no_print"><br/><a href="/testsessions/${id}"><button class="btn btn-primary">Back</button></a></span>
+	    <button class="no_print btn btn-info" id="print_button" disabled="disabled"><span class="glyphicon glyphicon-print"></span> Print</button>
+
+	    <h2 style="margin-bottom: 0px;">Summary of tests: test session ID: ${id}, ${operator} ${starttime}</h2>
+	    <div id="${id}" class="test_sesession"></div>
+        <div id="test_summaries" data-count="${len(test_ids)}">
+            <div py:for="testid in test_ids" id="${testid}" class="test_div">
+            </div>
+        </div>
+        <br />
+        <br />
+	</div>
+	</div>
+</body>
+</html>

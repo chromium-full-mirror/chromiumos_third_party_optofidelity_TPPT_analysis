@@ -1,0 +1,75 @@
+.collapsing-list  {
+    display: table
+}
+
+.collapsing-header,.collapsing-subrow {
+    display: table-row
+}
+
+.collapsing-header:hover {
+  background-color: #A1C7F8;
+  cursor:pointer;
+}
+
+.collapsing-subrow {
+    display: none
+}
+
+.collapsing-icon,.collapsing-content {
+    display: table-cell;
+    padding: 5px;
+}
+
+.collapsing-icon .icon-open {
+    display: none
+}
+
+.viewselectors {
+    margin-bottom: 10px;
+}
+
+.viewselector {
+    border-radius: 5px;
+    padding: 5px;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: bold;
+}
+
+.viewselector.selected {
+    background: #349AD8;
+    color: White;
+}
+
+.viewselector:hover {
+  background-color: #A1C7F8;
+  cursor:pointer;
+}
+
+.test_session_link a {
+   display: block;
+   border: 1px solid black;
+   padding: 16px;
+}
+
+#view_manufacturers {
+    display: none;
+}
+
+#loading {
+    display: none;
+}
+
+.test_session_row:hover td:not(:last-child):not(:nth-last-child(2)) {
+  background-color: #A1C7F8;
+  cursor:pointer;
+ }
+
+ .test_session_row td:last-child:hover {
+  background-color: #CD5B45;
+  cursor:pointer;
+ }
+
+  .test_session_row td:nth-last-child(2):hover {
+  background-color: #6699CC;
+  cursor:pointer;
+ }

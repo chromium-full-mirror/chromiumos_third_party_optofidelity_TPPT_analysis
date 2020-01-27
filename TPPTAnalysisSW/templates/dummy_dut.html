@@ -1,0 +1,53 @@
+<html xmlns:py="http://genshi.edgewall.org/" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <head>
+    <title>Dummy DUT result creator</title>
+	<script type="text/javascript" src="/static/script/jquery.js"></script>
+	<script type="text/javascript" src="/static/script/dummy_dut.js"></script>
+	<link rel="shortcut icon" href="/static/img/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="/static/reportstyle.css" />
+	<link rel="stylesheet" type="text/css" href="/static/daddy.css" />
+	<link rel="stylesheet" type="text/css" href="/static/style.css" />
+  </head>
+  <body>
+	<div class="report">
+	<div id="Main" class="content" style="display: block; visibility: visible;">
+	<div><img src="../static/img/logo.jpg"/><p class="version">Analysis software version 1.2</p></div>
+	<span class="no_print"><br/><a href="/">Back</a></span>
+	<h2>Create test data</h2>
+	
+	<table class="listtable" id="settings_table">
+		<tr>
+			<th>Setting</th>
+			<th>value</th>
+		</tr>
+		<tr py:for="system_option in system_options">
+			<td>${system_option["desc"]}</td>
+			<td><input class="setting_value_input" type="text" name="${system_option['name']}" value="${system_option['value']}"/>${system_option["unit"]}</td>
+		</tr>
+	</table>
+	
+	<table class="listtable" id="test_table">
+		<tr>
+			<th>Tests</th>
+			<th>Selected</th>
+			<th py:for="test_option in test_options">${test_option}</th>
+		</tr>
+		<tr py:for="test in tests" class="test_row">
+			<td>${test['desc']}</td>
+			<td><input type="checkbox" name="${test['name']}" value="selected"/></td>
+			<td py:for="i in range(len(test['test_options']))"><input type="text" name="${test['test_options'][i]}" class="setting_value_input" value="${'1' if i == 2 else '0'}"/></td>
+		</tr>
+		<tr>
+			<td>All</td>
+			<td><input type="checkbox" name="all_tests" id="select_all"/></td>
+			<td py:for="i in range(3)"><input name="all" type="text" class="setting_value_input select_all" value="${'1' if i == 2 else '0'}"/></td>
+		</tr>
+	</table>
+	
+	<br/><br/>
+	<button id="save_button">Create</button>
+	</div>
+	<div id="loading" style="display: none;"><br/><br/>Creating data. Please wait.<br/><br/></div>
+	</div>
+  </body>
+</html>

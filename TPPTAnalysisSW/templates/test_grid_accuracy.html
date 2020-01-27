@@ -1,0 +1,85 @@
+    <div xmlns:py="http://genshi.edgewall.org/">
+
+        <h1>Verdicts</h1>
+
+    <table class="datatable test_verdicts">
+        <tr>
+            <th class="wide"></th>
+            <th>Value</th>
+            <th>Maximum allowed</th>
+            <th>Pass/Fail</th>
+        </tr>
+        <tr>
+            <td class="vertical_header_th" >Avg of max accuracy error:</td>
+            <td>${"%.3f" % results.avg_max_input_error} mm</td>
+            <td>${"%.3f" % results.maxposerror} mm</td>
+            <td class="${'passed' if results.maxposerror >= results.avg_max_input_error else 'failed'}" >
+                 ${"Pass" if results.maxposerror >= results.avg_max_input_error else "Fail"}
+            </td>
+        </tr>
+        <tr>
+            <td class="vertical_header_th" >Avg of max accuracy error w/o notch and corners:</td>
+            <td>${"%.3f" % results.avg_max_edge_only_error} mm</td>
+            <td>${"%.3f" % results.maxposerror_edge_only} mm</td>
+            <td class="${'passed' if results.maxposerror_edge_only >= results.avg_max_edge_only_error else 'failed'}" >
+                 ${"Pass" if results.maxposerror_edge_only >= results.avg_max_edge_only_error else "Fail"}
+            </td>
+        </tr>
+        <tr>
+            <td class="vertical_header_th" >Avg of avg accuracy error:</td>
+            <td>${"%.3f" % results.avg_avg_input_error} mm</td>
+            <td>-</td>
+            <td >-</td>
+        </tr>
+        <tr>
+            <td class="vertical_header_th" >Stdev accuracy error:</td>
+            <td>${"%.3f" % results.stdev_input_error} mm</td>
+            <td>-</td>
+            <td >-</td>
+        </tr>
+        <tr>
+            <td class="vertical_header_th" >Max of max accuracy error:</td>
+            <td>${"%.3f" % results.max_max_input_error} mm</td>
+            <td>-</td>
+            <td >-</td>
+        </tr>
+        <tr>
+            <td class="vertical_header_th">Missing inputs:</td>
+            <td>${"%.1f" % results.missing_inputs_percentage} %</td>
+            <td>${"%.1f"  %settings['grid_acc_missing_points']} %</td>
+            <td class="${'passed' if results.missing_inputs_verdict == 'Pass' else 'failed'}">${"Pass" if results.missing_inputs_verdict == "Pass" else "Fail"}</td>
+        </tr>
+        <tr>
+            <td class="vertical_header_th">Ghost finger(s):</td>
+            <td class="${'Found' if results.ghost_finger_found else 'Not found'}">${"Found" if results.ghost_finger_found else "Not found"}</td>
+            <td>-</td>
+            <td> - </td>
+        </tr>
+    </table>
+
+        <h1>Details</h1>
+
+    <table class="datatable test_verdicts">
+        <tr>
+            <th>Touch down</th>
+            <th>Touch up</th>
+        </tr>
+
+        <div py:if="'noimages' not in kwargs" py:for="i in range(len(results['touch_down'].images))" class="preview">
+            <tr>
+            <td>
+            <a href="${results['touch_down'].images[i][1]}">
+                <img src="${results['touch_down'].images[i][0]}" alt="Preview image"/>
+            </a>
+            </td>
+
+            <td>
+            <a href="${results['touch_up'].images[i][1]}">
+                <img src="${results['touch_up'].images[i][0]}" alt="Preview image"/>
+            </a>
+            </td>
+            </tr>
+        </div>
+    </table>
+
+    </div>

@@ -1,0 +1,5 @@
+DESCRIPTION="Library for analyzing touch panel validation test results"
+LOCAL_GIT_REPO="https://chromium.googlesource/com/chromiumos/third_party/optofidelity_TPPT_analysis
+LOCAL_BUGSDB="https://crbug.com"
+LICENSE="4-clause BSD"
+LICENSE_FILE="LICENSE"
