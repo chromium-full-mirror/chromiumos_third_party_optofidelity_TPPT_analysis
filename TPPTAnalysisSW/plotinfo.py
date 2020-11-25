@@ -78,9 +78,9 @@ class TestDUTInfo:
 
         # Handle the parameters
 
-        # Digitizer resolution
-        self.digitizer_resolution = [float(s) for s in self.parameters['DUT resolution [x;y, p.c.]'].split(';')]
-        # Physical dimensions
+        # Digitizer resolution (maximum x,y values reported by touch device)
+        self.digitizer_resolution = [float(s) for s in self.parameters['DUT resolution [x;y]'].split(';')]
+        # Physical dimensions (mm)
         self.dimensions = [float(s) for s in self.parameters['DUT dimensions [x;y, mm]'].split(';')]
         # Offset to be added to the measurements
         self.offset = [float(s) for s in self.parameters['DUT offset [x;y, mm]'].split(';')]
@@ -109,7 +109,7 @@ class TestDUTInfo:
 
         testdut = dbsession.query(db.TestDUT).filter(db.TestDUT.id == self.id).first()
         saveparams = {
-                      'DUT resolution [x;y, p.c.]': ";".join(str(f) for f in self.digitizer_resolution),
+                      'DUT resolution [x;y]': ";".join(str(f) for f in self.digitizer_resolution),
                       'DUT dimensions [x;y, mm]': ';'.join(str(f) for f in self.dimensions),
                       'DUT offset [x;y, mm]': ';'.join(str(f) for f in self.offset),
                       'Flip X coordinates': '1' if self.flipx else '0',
