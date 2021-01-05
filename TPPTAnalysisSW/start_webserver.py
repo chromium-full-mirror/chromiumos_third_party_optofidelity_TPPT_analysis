@@ -36,21 +36,6 @@ import TPPTAnalysisSW.measurementdb as measurementdb
 import TPPTAnalysisSW.progressstatus as progressstatus
 
 # We need to import the different test types somewhere - a small kludge
-import TPPTAnalysisSW.tests.test_multifinger_swipe
-import TPPTAnalysisSW.tests.test_multifinger_tap
-import TPPTAnalysisSW.tests.test_separation
-import TPPTAnalysisSW.tests.test_dutinformation
-import TPPTAnalysisSW.tests.test_one_finger_tap
-import TPPTAnalysisSW.tests.test_one_finger_swipe
-import TPPTAnalysisSW.tests.test_repeatability
-import TPPTAnalysisSW.tests.test_non_stationary_reporting_rate
-import TPPTAnalysisSW.tests.test_stationary_reporting_rate
-import TPPTAnalysisSW.tests.test_stationary_jitter
-import TPPTAnalysisSW.tests.test_one_finger_tap
-import TPPTAnalysisSW.tests.test_linearity
-import TPPTAnalysisSW.tests.test_grid_accuracy
-import TPPTAnalysisSW.tests.test_stationary_jitter_static_noise
-import TPPTAnalysisSW.tests.test_tapping_repeatability
 
 import os
 import sys
