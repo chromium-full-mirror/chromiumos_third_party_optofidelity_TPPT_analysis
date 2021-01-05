@@ -27,26 +27,19 @@ settings = {}
 
 precision = Decimal("0.001") # Precision to use in calculations
 
-setting_categories = {'One Finger Non-Stationary Reporting Rate': ['minreportingrate'],
-                      'One Finger Swipe': ['maxoffset', 'maxjitter', 'jittermask', 'maxmissingswipes'],
-                      'Linearity': ['max_avg_of_max_errors', 'max_rms_error', 'min_report_rate',
-                                    'min_report_rate_noise_inj_single', 'min_report_rate_noise_inj_multi',
-                                    'max_missing_swipes', 'max_broken_lines', 'max_ghost_fingers', 'jitter_mask'],
-                      'One Finger Tap': ['edgelimit', 'maxposerror', 'maxmissing', 'edgepositioningerror', 'maxedgemissing'],
-                      'Grid Accuracy': ['max_error_edge', 'max_error_edge_corner_notch', 'max_error_center',
-                                        'grid_acc_missing_points'],
-                      'One Finger Tap Repeatability': ['maxrepeaterror'],
-                      'One Finger Tapping Repeatability Test': ['max_error_edge_down', 'max_error_edge_up',
-                                                                'max_error_center_down', 'max_error_center_up',
-                                                                'max_error_corner_down', 'max_error_corner_up',
-                                                                'repeatability_missing_points'],
-                      'One Finger Stationary Jitter': ['maxstationaryjitter'],
-                      'Stationary Jitter Static Noise': ['max_stat_jitter_no_noise', 'max_stat_jitter_noise',
-                                                         'max_noise_test_jitter', 'jitter_missing_points'],
-                      'One Finger Stationary Reporting Rate': ['minreportingrate'],
-                      'MultiFinger Tap': ['edgelimit', 'maxposerror', 'maxmissing', 'edgepositioningerror', 'maxedgemissing'],
-                      'MultiFinger Swipe': ['maxoffset', 'maxjitter', 'jittermask', 'maxmissingswipes'],
-                      'Two Finger Separation': ['maxseparation', 'maxdiagseparation'],
+setting_categories = {'Line Angle': ['angle_error'],
+                      'Report Rate': ['report_rate'],
+                      'Range': ['edge_range'],
+                      'Gap': ['gap_ratio'],
+                      'Linearity': ['max_linearity', 'rms_linearity'],
+                      'Circularity': ['max_circularity', 'rms_circularity'],
+                      'Stationary': ['stationary_movement'],
+                      'Reversed Motion': ['reversed_motion'],
+                      'Packet Count': ['packet_count'],
+                      'Drumroll': ['drumroll_radius'],
+                      'Movement Hysteresis': ['movement_hysteresis'],
+                      'Tap Accuracy': ['minimum_radius'],
+                      'Swipe Length': ['swipe_length']
                       }
 
 csvchars = ".,"
