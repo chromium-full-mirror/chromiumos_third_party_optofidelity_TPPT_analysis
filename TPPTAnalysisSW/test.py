@@ -24,7 +24,7 @@ from cherrypy import *
 
 from .base_page import BasePage
 import TPPTAnalysisSW.testbase as testbase
-from .measurementdb import get_database, TestResult
+from optofidelity_protocols.measurementdb import get_database, TestResult
 from datetime import datetime
 import TPPTAnalysisSW.test_refs as test_refs
 import json

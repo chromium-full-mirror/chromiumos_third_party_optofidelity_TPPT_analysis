@@ -26,11 +26,11 @@ import json
 from genshi.template import MarkupTemplate
 from genshi.filters import HTMLFormFiller
 
+import optofidelity_protocols.measurementdb as db
 import TPPTAnalysisSW.plotinfo as plotinfo
 import TPPTAnalysisSW.test_session as test_session
 import TPPTAnalysisSW.plotters as plotters
 import TPPTAnalysisSW.imagefactory as imagefactory
-import TPPTAnalysisSW.measurementdb as db
 import TPPTAnalysisSW.test_session as test_session
 
 from .base_page import BasePage

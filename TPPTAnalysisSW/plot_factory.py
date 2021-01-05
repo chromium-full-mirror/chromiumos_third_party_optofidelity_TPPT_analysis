@@ -20,14 +20,12 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 # -*- coding: utf-8 -*-
-from .measurementdb import *
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 from matplotlib.patches import Ellipse, Rectangle
-import TPPTAnalysisSW.measurementdb as measurementdb
 from matplotlib import cm
 from mpl_toolkits.mplot3d import Axes3D
 

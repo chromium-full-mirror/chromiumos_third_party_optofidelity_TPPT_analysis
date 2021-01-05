@@ -21,7 +21,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
 from decimal import Decimal
-from .measurementdb import Setting
+from optofidelity_protocols.measurementdb import Setting
 
 settings = {}
 

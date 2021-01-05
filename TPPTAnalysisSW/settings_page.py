@@ -28,7 +28,7 @@ from cherrypy import HTTPError
 from genshi.template import MarkupTemplate
 
 from .base_page import BasePage
-from .measurementdb import get_database, Setting
+from optofidelity_protocols.measurementdb import get_database, Setting
 import TPPTAnalysisSW.test_session as test_session
 import TPPTAnalysisSW.imagefactory as imagefactory
 from .settings import settings, setting_categories, loadSettings

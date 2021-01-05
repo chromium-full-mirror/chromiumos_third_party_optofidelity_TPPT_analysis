@@ -31,8 +31,8 @@ from .test_session_settings import TestSessionSettingsController
 from .settings import *
 from .test_summary import SummaryController
 from .utils import Timer
+import optofidelity_protocols.measurementdb as measurementdb
 import TPPTAnalysisSW.test_refs as test_refs
-import TPPTAnalysisSW.measurementdb as measurementdb
 import TPPTAnalysisSW.progressstatus as progressstatus
 
 # We need to import the different test types somewhere - a small kludge

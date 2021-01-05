@@ -25,7 +25,7 @@ from genshi.template import MarkupTemplate
 
 from testbase import TestBase, testclasscreator
 from imagefactory import ImageFactory
-from measurementdb import get_database
+from optofidelity_protocols.measurementdb import get_database
 from info.version import Version
 from utils import Timer
 import plotinfo

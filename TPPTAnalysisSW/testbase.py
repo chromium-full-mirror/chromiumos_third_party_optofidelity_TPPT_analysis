@@ -30,7 +30,7 @@ import traceback
 import TPPTAnalysisSW.plotinfo as plotinfo
 import TPPTAnalysisSW.analyzers as analyzers
 
-from .measurementdb import get_database, TestItem, TestResult
+from optofidelity_protocols.measurementdb import get_database, TestItem, TestResult
 from .settings import settings
 from TPPTAnalysisSW.sqluploader import Session, is_sql_uploader_initialized
 import TPPTAnalysisSW.test_refs as test_refs

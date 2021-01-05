@@ -30,7 +30,6 @@ import TPPTAnalysisSW.testbase as testbase
 import TPPTAnalysisSW.plotinfo as plotinfo
 from .base_page import BasePage
 import TPPTAnalysisSW.plot_factory as plot_factory
-from .measurementdb import get_database
 from .plot_factory import *
 
 # generator functions for the different images - will be filled by the decorator

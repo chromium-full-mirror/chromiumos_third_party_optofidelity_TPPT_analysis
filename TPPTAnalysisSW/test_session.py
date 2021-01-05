@@ -23,7 +23,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import cherrypy
 from genshi.template import MarkupTemplate
 from sqlalchemy.orm import joinedload
-import TPPTAnalysisSW.measurementdb as measurementdb
+import optofidelity_protocols.measurementdb as measurementdb
 from .plotinfo import *
 import TPPTAnalysisSW.analyzers as analyzers
 from .settings import settings

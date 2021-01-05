@@ -23,7 +23,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 from cherrypy import *
 
 from .base_page import BasePage
-import TPPTAnalysisSW.measurementdb as measurementdb
+import optofidelity_protocols.measurementdb as measurementdb
 from datetime import datetime
 import TPPTAnalysisSW.test_refs as test_refs
 from .info.version import Version

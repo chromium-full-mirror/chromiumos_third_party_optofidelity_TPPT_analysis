@@ -21,7 +21,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
 import TPPTAnalysisSW.transform2d as transform2d
-import TPPTAnalysisSW.measurementdb as db
+import optofidelity_protocols.measurementdb as db
 
 class TestSessionInfo:
     """ Information class that holds test session information contents """

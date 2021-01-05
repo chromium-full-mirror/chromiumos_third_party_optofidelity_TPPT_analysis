@@ -31,7 +31,7 @@ import glob
 import cherrypy
 import os.path
 
-import TPPTAnalysisSW.measurementdb as db
+import optofidelity_protocols.measurementdb as db
 from .base_page import BasePage
 from .test_session import TestSession
 from .info.version import Version
@@ -135,7 +135,7 @@ class MainPage(BasePage):
         elif filepath:
             test_refs.testclass_refs.clear()
             imagefactory.ImageFactory.delete_all_images()
-            db.get_database().changeDatabase(filepath)
+            db.get_database().change_database(filepath)
             return self.GET()
 
         if param == "recalculate":

@@ -25,6 +25,7 @@ from inspect import getsourcefile
 from os import chdir
 from os.path import realpath, join, dirname
 import TPPTAnalysisSW.sqluploader as sqluploader
+from optofidelity_protocols import measurementdb
 
 # Change current working directory to ./TPPTAnalysisSW to allow launching from main.py without changing all the
 # relative paths currently in the codebase
@@ -52,4 +53,5 @@ if __name__ == '__main__':
         # Comment this out to disable the possibility to upload results to SQL database.
         sqluploader.initialize(args.dbconfig)
 
+        measurementdb.setup_database(args.database, args.config)
         start_webserver.start(address, port)

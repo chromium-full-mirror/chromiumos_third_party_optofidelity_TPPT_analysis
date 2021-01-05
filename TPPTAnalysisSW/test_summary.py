@@ -24,7 +24,7 @@ from .base_page import BasePage
 from cherrypy import *
 from genshi.template import MarkupTemplate
 from genshi.filters import HTMLFormFiller
-from .measurementdb import *
+from optofidelity_protocols.measurementdb import get_database, TestItem
 from .plotinfo import TestSessionInfo
 from .info.version import Version
 
