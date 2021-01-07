@@ -1,8 +1,8 @@
 database_enabled: True
 # database_enabled: False
 database_engine: mysql+pymysql
-host_name: 35.226.32.149
+host_name: 127.0.0.1
 port: 3306
-user_name: test
-password: test
-database: test
+user_name: touchtester
+password: touchtester
+database: tppt_results
