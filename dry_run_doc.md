@@ -10,11 +10,11 @@ The dry run environment is delivered in source form and is hence not directly ex
 
 ### Windows
 
-Install Python 3.5.1 32-bit. Other versions might also work but have not been tested.
+Install Python 3.9.1. Other versions might also work but have not been tested.
 
 To set things up, open console (cmd.exe) in TPPT Analysis root directory. Then type
 
-    py -3.5-32 -m venv venv
+    python -m venv venv
 
 This will create a Python virtual environment in local directory `venv`.
 
