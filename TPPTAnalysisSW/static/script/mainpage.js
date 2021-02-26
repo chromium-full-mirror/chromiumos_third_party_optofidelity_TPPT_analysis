@@ -122,14 +122,6 @@ $(document).ready(function () {
         }
     });
 
-    $('.test_session_row td:nth-last-child(2)').click(function(e) {
-        if($(this).hasClass("ok")) {
-            window.location = "testsessionreports/" + $(this).parent().data("id");
-        } else {
-            e.stopPropagation();
-        }
-    });
-
     $(function() {
         $('#deleteRequest').click(function(){
             $('#deletemodal').modal('hide');

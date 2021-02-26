@@ -24,7 +24,6 @@ import cherrypy
 from .main_page import MainPage
 from .test_session import TestSession
 from .test import Test
-from .test_session_report import TestSessionReport
 from .imagefactory import ImageFactory
 from .settings_page import SettingsController
 from .test_session_settings import TestSessionSettingsController
@@ -66,7 +65,6 @@ def start(address, port):
     root = MainPage()
     root.testsessions = TestSession()
     root.tests = Test()
-    root.testsessionreports = TestSessionReport()
 
     # create generated image path if none exists
     if not os.path.isdir('static/img/generated'):
