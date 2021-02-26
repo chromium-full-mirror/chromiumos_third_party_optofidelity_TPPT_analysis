@@ -1,5 +1,4 @@
-database_enabled: True
-# database_enabled: False
+database_enabled: False
 database_engine: mysql+pymysql
 host_name: 127.0.0.1
 port: 3306
