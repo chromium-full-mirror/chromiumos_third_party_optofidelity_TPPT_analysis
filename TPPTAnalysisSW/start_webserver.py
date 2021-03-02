@@ -35,6 +35,20 @@ import TPPTAnalysisSW.test_refs as test_refs
 import TPPTAnalysisSW.progressstatus as progressstatus
 
 # We need to import the different test types somewhere - a small kludge
+import TPPTAnalysisSW.tests.test_finger_tracking
+import TPPTAnalysisSW.tests.test_finger_to_edge
+import TPPTAnalysisSW.tests.test_swipe
+import TPPTAnalysisSW.tests.test_pinch
+import TPPTAnalysisSW.tests.test_tap
+import TPPTAnalysisSW.tests.test_repeated_taps
+import TPPTAnalysisSW.tests.test_stationary_then_move
+import TPPTAnalysisSW.tests.test_drumroll
+import TPPTAnalysisSW.tests.test_compass
+import TPPTAnalysisSW.tests.test_compass_with_taps
+import TPPTAnalysisSW.tests.test_stationary_with_taps
+import TPPTAnalysisSW.tests.test_single_line_with_noise
+import TPPTAnalysisSW.tests.test_stationary_with_noise
+import TPPTAnalysisSW.tests.test_thumb
 
 import os
 import sys
