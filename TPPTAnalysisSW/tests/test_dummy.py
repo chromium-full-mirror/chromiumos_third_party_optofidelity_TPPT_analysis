@@ -26,7 +26,7 @@ from genshi.template import MarkupTemplate
 from testbase import TestBase, testclasscreator
 from imagefactory import ImageFactory
 from optofidelity_protocols.measurementdb import get_database
-from info.version import Version
+from info.version import version
 from utils import Timer
 import plotinfo
 import plot_factory
@@ -105,7 +105,7 @@ class DummyTest(TestBase):
 
         # set the content to be used
         templateParams['test_page'] = 'test_dummy.html'
-        templateParams['version'] = Version
+        templateParams['version'] = version
         
         template = MarkupTemplate(open("templates/test_common_body.html"))
         stream = template.generate(**(templateParams))

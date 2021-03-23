@@ -32,7 +32,7 @@ from optofidelity_protocols.measurementdb import get_database, Setting
 import TPPTAnalysisSW.test_session as test_session
 import TPPTAnalysisSW.imagefactory as imagefactory
 from .settings import settings, setting_categories, loadSettings
-from .info.version import Version
+from .info.version import version
 import TPPTAnalysisSW.progressstatus as progressstatus
 import TPPTAnalysisSW.test_refs as test_refs
 
@@ -55,7 +55,7 @@ class SettingsController(BasePage):
             tmpl = MarkupTemplate(f)
             settings = dbsession.query(Setting).all()
             groups = self.settings_by_group(settings)
-            stream = tmpl.generate(groups=groups, version=Version)
+            stream = tmpl.generate(groups=groups, version=version)
 
             return stream.render('xhtml')
 

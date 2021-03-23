@@ -26,7 +26,7 @@ from genshi.template import MarkupTemplate
 from genshi.filters import HTMLFormFiller
 from optofidelity_protocols.measurementdb import get_database, TestItem
 from .plotinfo import TestSessionInfo
-from .info.version import Version
+from .info.version import version
 
 import json
 import TPPTAnalysisSW.plotinfo as plotinfo
@@ -51,6 +51,6 @@ class SummaryController(BasePage):
         templateparams = copy.copy(sessioninfo.__dict__)
 
         template = MarkupTemplate(open("templates/test_summary.html"))     
-        stream = template.generate(test_ids=test_ids, version=Version, **(templateparams))
+        stream = template.generate(test_ids=test_ids, version=version, **(templateparams))
         return stream.render('xhtml')
     

@@ -22,7 +22,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 from sqlalchemy import Column, INTEGER, DATETIME, VARCHAR, func
 
 from TPPTAnalysisSW.testbase import TestBase, timestr_to_datetime
-from TPPTAnalysisSW.info.version import Version
+from TPPTAnalysisSW.info.version import version
 from TPPTAnalysisSW.sqluploader import Base
 
 
@@ -79,7 +79,7 @@ class TestConfig(TestBase):
             testconfig.station_id = test_session_db_dict['station_id']
             testconfig.version_tppt_scripts = test_session_db_dict['tppt_version']
             testconfig.version_tnt_server = test_session_db_dict['tnt_version']
-            testconfig.version_tppt_analyser = Version.software
+            testconfig.version_tppt_analyser = version
             session.add(testconfig)
             session.commit()
 

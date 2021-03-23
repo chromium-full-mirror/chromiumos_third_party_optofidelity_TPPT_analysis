@@ -34,7 +34,7 @@ import os.path
 import optofidelity_protocols.measurementdb as db
 from .base_page import BasePage
 from .test_session import TestSession
-from .info.version import Version
+from .info.version import version
 from .settings import settings
 import collections
 import TPPTAnalysisSW.progressstatus as progressstatus
@@ -119,7 +119,7 @@ class MainPage(BasePage):
 
             stream = template.generate(latest=latest,
                                    manufacturers=manufacturers,
-                                   version=Version,
+                                   version=version,
                                    pagenumber=pagenumber,
                                    dbfiles=collections.OrderedDict(sorted(paths.items(), key=lambda t: t[0])))
 

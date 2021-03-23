@@ -31,6 +31,7 @@ import TPPTAnalysisSW.plotinfo as plotinfo
 import TPPTAnalysisSW.analyzers as analyzers
 
 from optofidelity_protocols.measurementdb import get_database, TestItem, TestResult
+from .info.version import version
 from .settings import settings
 from TPPTAnalysisSW.sqluploader import Session, is_sql_uploader_initialized
 import TPPTAnalysisSW.test_refs as test_refs
@@ -200,6 +201,7 @@ class TestBase(object):
         templateParams["curtime"] = time.time()
 
         templateParams["settings"] = settings
+        templateParams["version"] = version
 
         templateParams["sql_uploader_initialized"] = is_sql_uploader_initialized()
 

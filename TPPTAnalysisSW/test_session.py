@@ -37,7 +37,7 @@ import TPPTAnalysisSW.plotinfo as plotinfo
 from .utils import Timer
 from .testbase import TestBase
 from .base_page import BasePage
-from .info.version import Version
+from .info.version import version
 import TPPTAnalysisSW.imagefactory as imagefactory
 from TPPTAnalysisSW.test import upload_test
 import TPPTAnalysisSW.sqluploader as sqluploader
@@ -86,7 +86,7 @@ class TestSession(BasePage):
                 stream = tmpl.generate(duts=duts, session=sessioninfo,
                                        session_upload_button_attributes=session_upload_button_attributes,
                                        sql_uploader_initialized=sqluploader.is_sql_uploader_initialized(),
-                                       version=Version)
+                                       version=version)
                 return stream.render('xhtml')
         else:
             raise cherrypy.HTTPError("404", "Command not found")

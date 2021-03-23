@@ -35,7 +35,7 @@ import TPPTAnalysisSW.test_session as test_session
 
 from .base_page import BasePage
 
-from .info.version import Version
+from .info.version import version
 
 # Settings controller for settings-view
 class TestSessionSettingsController(BasePage):
@@ -49,7 +49,7 @@ class TestSessionSettingsController(BasePage):
         dutinfo = plotinfo.TestDUTInfo(testdut_id=dut_id, dbsession=dbsession)
 
         template = MarkupTemplate(open("templates/test_dut_settings.html"))
-        stream = template.generate(version=Version, testsessionid=testsession_id, dutinfo=dutinfo)
+        stream = template.generate(version=version, testsessionid=testsession_id, dutinfo=dutinfo)
         return stream.render('xhtml')
 
     def POST(self, testsession_id, dut_id, **kwargs):

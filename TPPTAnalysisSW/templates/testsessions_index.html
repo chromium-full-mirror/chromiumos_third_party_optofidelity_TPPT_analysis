@@ -11,7 +11,7 @@
   <body>
     <div class="report">
     <div id="Main" class="content">
-    <div><a href="/"><img src="/static/img/logo.jpg"/></a><p class="version">Analysis software version ${version.simple}</p></div>
+    <div><a href="/"><img src="/static/img/logo.jpg"/></a><p class="version">Analysis software version ${version}</p></div>
     <span class="no_print"><br/><a href="/settings"><button class="btn btn-primary">Settings</button></a></span>
     <span class="no_print"><a href="/static/AnalysisSoftwareUserGuide.pdf"><button class="btn btn-info">User Guide</button></a></span>
     <span class="no_print"><a href="/main_page?page=${pagenumber - 1}" py:if="int(pagenumber) > 1"><button class="btn btn-primary">Previous page</button></a></span>
