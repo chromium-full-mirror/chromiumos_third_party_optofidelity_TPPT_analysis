@@ -29,8 +29,11 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
+import copy
 import math
 from collections import Iterable
+
+from TPPTAnalysisSW.shapes import Point
 
 class Transform2D:
     '''A transformation between two 2D coordinate systems. Can include
@@ -70,22 +73,19 @@ class Transform2D:
         return cls.rotate_radians(math.radians(angle))
     
     def transform(self, points):
-        '''Transform a group of points, or a single point. Argument can be list
-        of tuples [(x,y), (x,y), (x,y)] or a single tuple (x,y).'''
+        '''Transform a group of points, or a single point. Argument can be a list
+        of Points [Point(x,y), Point(x,y), Point(x,y)] or a single Point.'''
 
-        assert isinstance(points, Iterable)
+        assert isinstance(points, Iterable) or isinstance(points, Point)
 
-        # Handle empty list
-        if len(points) == 0:
-            return points
-        
-        if isinstance(points[0], Iterable):
+        if isinstance(points, Iterable):
             return [self.transform(p) for p in points]
         else:
-            x, y = points
-            x2 = self.matrix[0][0] * x + self.matrix[0][1] * y + self.matrix[0][2]
-            y2 = self.matrix[1][0] * x + self.matrix[1][1] * y + self.matrix[1][2]
-            return (x2, y2)
+            transformed_point = copy.copy(points)
+            x, y = points.x, points.y
+            transformed_point.x = self.matrix[0][0] * x + self.matrix[0][1] * y + self.matrix[0][2]
+            transformed_point.y = self.matrix[1][0] * x + self.matrix[1][1] * y + self.matrix[1][2]
+            return transformed_point
     
     def invert(self):
         '''Returns the inverse of the transform.'''
@@ -100,9 +100,9 @@ class Transform2D:
         
         scale = 1.0 / determinant
         new_rotation = Transform2D([[d * scale, -b * scale, 0], [-c * scale, a * scale, 0]])
-        tx, ty = new_rotation.transform((self.matrix[0][2], self.matrix[1][2]))
-        new_rotation.matrix[0][2] = -tx
-        new_rotation.matrix[1][2] = -ty
+        t = new_rotation.transform(Point(self.matrix[0][2], self.matrix[1][2]))
+        new_rotation.matrix[0][2] = -t.x
+        new_rotation.matrix[1][2] = -t.y
         return new_rotation
     
     def __add__(self, other):
@@ -114,8 +114,8 @@ class Transform2D:
 
         a1, b1, c1, d1 = self.matrix[0][0], self.matrix[0][1], self.matrix[1][0], self.matrix[1][1]
         a2, b2, c2, d2 = other.matrix[0][0], other.matrix[0][1], other.matrix[1][0], other.matrix[1][1]
-        tx, ty = other.transform((self.matrix[0][2], self.matrix[1][2]))
-        new = Transform2D([[a1 * a2 + b2 * c1, a2 * b1 + b2 * d1, tx], [c2 * a1 + d2 * c1, c2 * b1 + d2 * d1, ty]])
+        t = other.transform(Point(self.matrix[0][2], self.matrix[1][2]))
+        new = Transform2D([[a1 * a2 + b2 * c1, a2 * b1 + b2 * d1, t.x], [c2 * a1 + d2 * c1, c2 * b1 + d2 * d1, t.y]])
         return new
     
     def __str__(self):
