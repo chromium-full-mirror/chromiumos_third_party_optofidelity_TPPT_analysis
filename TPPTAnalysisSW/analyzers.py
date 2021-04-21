@@ -26,7 +26,6 @@ from .settings import settings, precision
 import math
 from collections import deque
 from decimal import Decimal
-import TPPTAnalysisSW.transform2d as transform2d
 from .plotinfo import *
 
 #
@@ -109,62 +108,6 @@ def get_max_error(point, dutinfo):
         max_error = settings['maxposerror']
 
     return max_error
-
-#
-# Coordinate transform functions
-#
-
-def panel_to_target(points, dutinfo):
-    """ Maps panel pixel coordinates - (x,y) tuple or list of tuples - to target coordinates. """
-    return panel_to_target_transform(dutinfo).transform(points)
-
-def panel_to_target_angle(angle):
-    """ Maps panel angles (radians) to degrees. """
-    return round_dec(np.degrees(angle))
-
-def panel_to_target_transform(dutinfo):
-    """ Returns the Transform2D object that does the transform from panel to target coordinate system """
-    dimensions = dutinfo.dimensions             # Size of target (in mm)
-    resolution = dutinfo.digitizer_resolution   # Resolution of target (in pixels)
-    offset = dutinfo.offset                     # Offset of panel->target conversion (in mm)
-
-    # First: possible switches
-    tinit = transform2d.Transform2D.identity()
-
-    if dutinfo.switchxy:
-        tinit = tinit + transform2d.Transform2D([[0, 1, 0], [1, 0, 0]])
-    if dutinfo.flipx:
-        # Make a mirroring transform along x-axis
-        tinit = tinit + transform2d.Transform2D([[-1, 0, resolution[0]], [0, 1, 0]])
-    if dutinfo.flipy:
-        tinit = tinit + transform2d.Transform2D([[1, 0, 0], [0, -1, resolution[1]]])
-
-    # Pixels per mm values
-    sx = float(dimensions[0])/float(resolution[0])
-    sy = float(dimensions[1])/float(resolution[1])
-
-    scale = transform2d.Transform2D.scale(sx,sy)
-    toffset = transform2d.Transform2D.offset(offset[0],offset[1])
-
-    transition = tinit + scale + toffset
-
-    return transition
-
-def robot_to_target(points, dutinfo):
-    """Maps robot pixel coordinates - (x,y) tuple or list of tuples - to target coordinates."""
-
-    # Currently does nothing
-    return points
-
-def robot_to_target_angle(angle, dutinfo):
-    """Maps robot angles (degrees) to radians. """
-    # Currently does nothing
-    return angle
-
-def robot_to_target_transform(dutinfo):
-    """ Returns the Transform2D object that does the transform from robot to target coordinate system """
-    # Currently does nothing
-    return transform2d.Transform2D.offset(0,0) # Identity
 
 #
 # Test session information functions
