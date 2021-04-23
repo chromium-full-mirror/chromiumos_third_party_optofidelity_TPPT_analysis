@@ -166,17 +166,6 @@ def robot_to_target_transform(dutinfo):
     # Currently does nothing
     return transform2d.Transform2D.offset(0,0) # Identity
 
-def target_to_swipe(points, swipe_start, swipe_end):
-    """Maps swipe (target) coordinates - (x,y) tuple or list of tuples - to swipe (length, offset) coordinates."""
-    return target_to_swipe_transform(swipe_start, swipe_end).transform(points)
-
-def target_to_swipe_transform(swipe_start, swipe_end):
-    """ Returns the Transform2D object that does the transform from swipe (target) coordinates to swipe (length, offset) coordinates """
-    direction = (swipe_end[0] - swipe_start[0], swipe_end[1] - swipe_start[1]) # vector swipe start->end
-    angle = math.atan2(direction[1], direction[0]) # Angle of the swipe (start->end)
-    transform = transform2d.Transform2D.offset(-swipe_start[0], -swipe_start[1]) + transform2d.Transform2D.rotate_radians(-angle)
-    return transform
-
 #
 # Test session information functions
 #
