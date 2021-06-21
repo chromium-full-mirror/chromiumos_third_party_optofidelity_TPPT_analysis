@@ -5,6 +5,7 @@
 """Objects defining the geometry of robot gestures and DUT measurements."""
 
 from abc import ABC, abstractmethod
+import copy
 import math
 import numpy as np
 import TPPTAnalysisSW.transform2d as transform2d
@@ -49,6 +50,9 @@ class Point:
     def __truediv__(self, other):
         return Point(self.x / other, self.y / other)
 
+    def __eq__(self, other):
+        return math.isclose(self.x, other.x) and math.isclose(self.y, other.y)
+
     def __repr__(self):
         return 'Point({}, {})'.format(self.x, self.y)
 
@@ -71,7 +75,22 @@ class TargetShape(ABC):
         pass
 
 
-class Line(TargetShape):
+class TargetPath(TargetShape):
+    """A TargetShape which is a 2D path, such as a line."""
+    @abstractmethod
+    def to_path_coordinates(self, measurement_points):
+        """Transform a set of measurement points to path coordinates
+
+        Args:
+            measurement_points: List of Point objects in panel coordinates.
+        Returns:
+            List of Point objects in path coordinates, where the x value is the parallel distance along the path from
+            the start, and the y value is the perpendicular distance from the path.
+        """
+        pass
+
+
+class Line(TargetPath):
     """A single line drawn by the robot."""
     def __init__(self, start, end):
         super().__init__()
@@ -136,19 +155,11 @@ class Line(TargetShape):
         return np.degrees(rads)
 
     def rms_error(self, measurement_points):
-        line_points = self.to_line_coordinates(measurement_points)
+        line_points = self.to_path_coordinates(measurement_points)
         errors = [p.y for p in line_points]
         return np.sqrt(np.mean(np.power(errors, 2)))
 
-    def to_line_coordinates(self, measurement_points):
-        """Transform a set of measurement points to line coordinates
-
-        Args:
-            measurement_points: List of Point objects in panel coordinates.
-        Returns:
-            List of Point objects in line coordinates, where the x value is the parallel distance along the Line from
-            the start, and the y value is the perpendicular distance from the Line.
-        """
+    def to_path_coordinates(self, measurement_points):
         transform = (transform2d.Transform2D.offset(-self.start.x, -self.start.y) +
                      transform2d.Transform2D.rotate_degrees(self.angle))
         return transform.transform(measurement_points)
@@ -210,7 +221,7 @@ class TapPoint(TargetShape, Point):
         return np.sqrt(np.mean(np.power(errors, 2)))
 
 
-class Arc(TargetShape):
+class Arc(TargetPath):
     """An arc drawn by the robot."""
     def __init__(self, db_compass):
         """Initializes an Arc based on a compass gesture performed by the robot.
@@ -232,3 +243,23 @@ class Arc(TargetShape):
     def rms_error(self, measurement_points):
         radii = [p.distance(self.center) for p in measurement_points]
         return np.sqrt(np.mean(np.power(np.subtract(radii, self.radius), 2)))
+
+    def to_path_coordinates(self, measurement_points):
+        mid_azimuth = (self.start_azimuth + self.end_azimuth) / 2
+        # In order to avoid a discontinuity when calculating arctan, first rotate the arc to be centered around the
+        # positive x-axis.
+        transform = (transform2d.Transform2D.offset(-self.center.x, -self.center.y) +
+                     transform2d.Transform2D.rotate_degrees(mid_azimuth) +
+                     transform2d.Transform2D.scale(1, -1))
+        axis_centered_points = transform.transform(measurement_points)
+
+        ret = []
+        for point in axis_centered_points:
+            phi = math.atan2(point.y, point.x) + math.radians(mid_azimuth - self.start_azimuth)
+            parallel_distance = phi * self.radius
+            perpendicular_distance = point.distance(Point(0, 0)) - self.radius
+            new_point = copy.copy(point)
+            new_point.x, new_point.y = parallel_distance, perpendicular_distance
+            ret.append(new_point)
+
+        return ret
