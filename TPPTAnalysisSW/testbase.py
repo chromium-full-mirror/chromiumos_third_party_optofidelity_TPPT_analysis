@@ -28,7 +28,6 @@ import math
 import time
 import traceback
 import TPPTAnalysisSW.plotinfo as plotinfo
-import TPPTAnalysisSW.analyzers as analyzers
 
 from optofidelity_protocols.measurementdb import get_database, TestItem, TestResult
 from .info.version import version

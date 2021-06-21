@@ -25,7 +25,6 @@ from genshi.template import MarkupTemplate
 from sqlalchemy.orm import joinedload
 import optofidelity_protocols.measurementdb as measurementdb
 from .plotinfo import *
-import TPPTAnalysisSW.analyzers as analyzers
 from .settings import settings
 from datetime import datetime
 import math
