@@ -51,7 +51,7 @@ class Point:
         return Point(self.x / other, self.y / other)
 
     def __eq__(self, other):
-        return math.isclose(self.x, other.x) and math.isclose(self.y, other.y)
+        return math.isclose(self.x, other.x, abs_tol=1e-10) and math.isclose(self.y, other.y, abs_tol=1e-10)
 
     def __repr__(self):
         return 'Point({}, {})'.format(self.x, self.y)
@@ -256,6 +256,9 @@ class Arc(TargetPath):
         ret = []
         for point in axis_centered_points:
             phi = math.atan2(point.y, point.x) + math.radians(mid_azimuth - self.start_azimuth)
+            # Account for clockwise arcs
+            if self.start_azimuth > self.end_azimuth:
+                phi *= -1
             parallel_distance = phi * self.radius
             perpendicular_distance = point.distance(Point(0, 0)) - self.radius
             new_point = copy.copy(point)
