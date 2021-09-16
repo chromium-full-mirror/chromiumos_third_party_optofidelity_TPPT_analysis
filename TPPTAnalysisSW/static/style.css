@@ -5,13 +5,25 @@
 }
 
 @media screen {
-.passed
+.Pass
 {
 	color: #00FF00;
 	font-weight:bold;
 }
 
-.failed
+.Borderline
+{
+	color: #FFA500;
+	font-weight:bold;
+}
+
+.Fail
+{
+	color: #FF0000;
+	font-weight:bold;
+}
+
+.Error
 {
 	color: #FF0000;
 	font-weight:bold;
@@ -19,16 +31,28 @@
 }
 
 @media print {
-.passed
+.Pass
 {
 	color: #00FF00 !important;
     font-weight:bold;
 }
 
-.failed
+.Borderline
+{
+	color: #FFA500 !important;
+	font-weight:bold;
+}
+
+.Fail
 {
 	color: #FF0000 !important;
     font-weight:bold;
+}
+
+.Error
+{
+	color: #FF0000 !important;
+	font-weight:bold;
 }
 }
 

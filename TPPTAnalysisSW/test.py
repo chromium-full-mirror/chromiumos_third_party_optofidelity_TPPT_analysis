@@ -81,7 +81,7 @@ class Test(BasePage):
                 session = get_database().session()
                 dbresult = TestResult()
                 dbresult.test_id = test_id
-                dbresult.result = result
+                dbresult.result = result.value
                 dbresult.calculated = datetime.now()
                 session.query(TestResult).filter(TestResult.test_id == test_id).delete()
                 session.add(dbresult)

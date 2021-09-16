@@ -40,6 +40,7 @@ import collections
 import TPPTAnalysisSW.progressstatus as progressstatus
 import TPPTAnalysisSW.test_refs as test_refs
 import TPPTAnalysisSW.imagefactory as imagefactory
+from TPPTAnalysisSW.testbase import TestStatus
 
 
 #Main page controller
@@ -77,16 +78,18 @@ class MainPage(BasePage):
         for ts in testsessions:
 
             tests, test_in_database, results, curved = TestSession.sessionResultsFromDB(ts, dbsession)
-            if "Error" in results:
-                result = "Error"
-            elif "Fail" in results and "Requires recalculate" not in results:
-                result = "Fail"
-            elif ("N/A" in results or len(results) == 0):
-                result = "N/A"
-            elif "Requires recalculate" in results:
-                result = "Requires recalculate"
+            if TestStatus.ERROR in results:
+                result = TestStatus.ERROR
+            elif TestStatus.RECALCULATE in results:
+                result = TestStatus.RECALCULATE
+            elif TestStatus.FAIL in results:
+                result = TestStatus.FAIL
+            elif TestStatus.BORDERLINE in results:
+                result = TestStatus.BORDERLINE
+            elif len(results) == 0:
+                result = TestStatus.NA
             else:
-                result = "Pass"
+                result = TestStatus.PASS
 
             sessions.append((ts, result, TestSession.session_samples_progs_manus(ts, dbsession), curved))
 

@@ -51,7 +51,7 @@ $(document).ready(function () {
 
     $(".failed_lines_button").click(function () {
         // Select failed plots
-        var selector = ".failed ~ .plot"
+        var selector = `.${TestStatus.kFail} ~ .plot`
         if ($(this).is("[data-target]")) {
             // Target defined
             selector = "#".concat($(this).attr("data-target")) + " " + selector
@@ -62,7 +62,7 @@ $(document).ready(function () {
 
     $(".passed_lines_button").click(function () {
         // Select passed plots
-        var selector = ".passed ~ .plot"
+        var selector = `.${TestStatus.kPass} ~ .plot`
         if ($(this).is("[data-target]")) {
             // Target defined
             selector = "#".concat($(this).attr("data-target")) + " " + selector

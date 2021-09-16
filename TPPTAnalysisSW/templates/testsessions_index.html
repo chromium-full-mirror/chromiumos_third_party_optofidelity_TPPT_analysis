@@ -62,7 +62,7 @@
                 <td>${ts[2][2]}</td>
                 <td>${ts[2][1]}</td>
                 <td>${ts[2][3]}</td>
-                <td class="${'passed' if ts[1] == 'Pass' else 'failed' if ts[1]=='Fail' else ''}">${ts[1]}</td>
+                <td class="${ts[1].value}">${ts[1].value}</td>
                 <td class="notes">${ts[0].notes}</td>
                 <td data-toggle="modal" data-target="#deletemodal" data-id="${ts[0].id}"><span class="glyphicon glyphicon glyphicon-remove"></span></td>
             </tr>
@@ -118,7 +118,7 @@
                                 <td>${ts[2][2]}</td>
                                 <td>${ts[2][1]}</td>
                                 <td>${ts[2][3]}</td>
-                                <td class="${'passed' if ts[1] == 'Pass' else 'failed' if ts[1]=='Fail' else ''}">${ts[1]}</td>
+                                <td class="${ts[1].value}">${ts[1].value}</td>
                                 <td class="notes">${ts[0].notes}</td>
                                 <td data-toggle="modal" data-target="#deletemodal" data-id="${ts[0].id}"><span class="glyphicon glyphicon glyphicon-remove"></span></td>
                             </tr>

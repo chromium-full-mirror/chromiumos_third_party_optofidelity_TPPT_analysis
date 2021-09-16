@@ -40,6 +40,7 @@ from .info.version import version
 import TPPTAnalysisSW.imagefactory as imagefactory
 from TPPTAnalysisSW.test import upload_test
 import TPPTAnalysisSW.sqluploader as sqluploader
+from TPPTAnalysisSW.testbase import TestStatus
 
 
 # Controller for testsession
@@ -85,7 +86,8 @@ class TestSession(BasePage):
                 stream = tmpl.generate(duts=duts, session=sessioninfo,
                                        session_upload_button_attributes=session_upload_button_attributes,
                                        sql_uploader_initialized=sqluploader.is_sql_uploader_initialized(),
-                                       version=version)
+                                       version=version,
+                                       test_status=TestStatus)
                 return stream.render('xhtml')
         else:
             raise cherrypy.HTTPError("404", "Command not found")
@@ -188,9 +190,9 @@ class TestSession(BasePage):
         for test in testsession.test_items:
             if len(test.test_results) == 0:
                 # Run analysis
-                result = TestBase.evaluateresult(test.id)
+                result = TestStatus(TestBase.evaluateresult(test.id).value)
             else:
-                result = test.test_results[0].result
+                result = TestStatus(test.test_results[0].result)
 
             test_object, cache = TestBase.create(test.id)
             already_in_database = test_object.exists_in_database_with_start_time(test.starttime)

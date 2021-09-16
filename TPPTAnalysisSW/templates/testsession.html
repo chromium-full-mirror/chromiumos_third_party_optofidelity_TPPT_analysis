@@ -49,12 +49,12 @@
                     <th py:if="sql_uploader_initialized" class="narrow">Upload</th>
                 </tr>
                 <tr py:for="test,result, button_attributes in dut[1]" >
-                    <td class="${'' if result=='Error' else 'test_row'}" data-test-id="${test.id}">${"%s #%s" % (test.type.name, test.id)}</td>
+                    <td class="${'' if result==test_status.ERROR else 'test_row'}" data-test-id="${test.id}">${"%s #%s" % (test.type.name, test.id)}</td>
                     <td>${test.starttime}</td>
                     <td>${test.endtime}</td>
                     <td>${test.finger_type}</td>
                     <td>${test.invalid}</td>
-                    <td class="${'passed' if result=='Pass' else 'failed' if result=='Fail' or result=='Error' else ''}">${result if result!='Error' else 'Error in analysis!'}</td>
+                    <td class="${result.value}">${result.value}</td>
                     <td py:if="sql_uploader_initialized">
                         <button class="no_print btn btn-info upload_test_button" data-test-id="${test.id}" py:attrs="button_attributes">
                         <span class="glyphicon glyphicon-cloud-upload"></span>

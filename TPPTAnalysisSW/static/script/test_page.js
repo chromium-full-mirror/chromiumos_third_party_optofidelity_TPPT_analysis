@@ -1,32 +1,42 @@
+/**
+ * Enum of possible states a test can be in. Should match the equivalent Enum defined in spec_validators.py
+ * @enum {string}
+ */
+const TestStatus = {
+  kPass: 'Pass',
+  kBorderline: 'Borderline',
+  kFail: 'Fail',
+}
+
 $(document).ready(function()
 {
 	$(".pass_select").each(function()
 	{
 		if ($(this).hasClass("select_initially_passed"))
 		{
-			$(this).val("passed")
-			$(this).addClass("passed")
-			$(this).removeClass("failed")
+			$(this).val(TestStatus.kPass)
+			$(this).addClass(TestStatus.kPass)
+			$(this).removeClass(TestStatus.kFail)
 		}
 		else
 		{
-			$(this).val("failed")
-			$(this).addClass("failed")
-			$(this).removeClass("passed")
+			$(this).val(TestStatus.kFail)
+			$(this).addClass(TestStatus.kFail)
+			$(this).removeClass(TestStatus.kPass)
 		}
 	});
 
 	$(".pass_select").change(function()
 	{
-		if ($('option:selected', this).hasClass("passed"))
+		if ($('option:selected', this).hasClass(TestStatus.kPass))
 		{
-			$(this).addClass("passed")
-			$(this).removeClass("failed")
+			$(this).addClass(TestStatus.kPass)
+			$(this).removeClass(TestStatus.kFail)
 		}
 		else
 		{
-			$(this).addClass("failed")
-			$(this).removeClass("passed")
+			$(this).addClass(TestStatus.kFail)
+			$(this).removeClass(TestStatus.kPass)
 		}
 	});
 

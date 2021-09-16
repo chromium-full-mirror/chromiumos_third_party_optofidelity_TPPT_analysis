@@ -22,8 +22,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 from sqlalchemy.orm import joinedload
 from datetime import datetime
-import numpy as np
-import math
+from enum import Enum
 
 import time
 import traceback
@@ -32,6 +31,7 @@ import TPPTAnalysisSW.plotinfo as plotinfo
 from optofidelity_protocols.measurementdb import get_database, TestItem, TestResult
 from .info.version import version
 from .settings import settings
+from TPPTAnalysisSW.spec_validators import Verdict
 from TPPTAnalysisSW.sqluploader import Session, is_sql_uploader_initialized
 import TPPTAnalysisSW.test_refs as test_refs
 
@@ -47,6 +47,16 @@ def timestr_to_datetime(timestr):
     :param timestr: Time string.
     """
     return datetime.strptime(timestr, TIME_FORMAT)
+
+
+class TestStatus(Enum):
+    PASS = Verdict.PASS.value
+    BORDERLINE = Verdict.BORDERLINE.value
+    FAIL = Verdict.FAIL.value
+    ERROR = "Error"
+    RECALCULATE = "Requires Recalculation"
+    NA = "N/A"
+
 
 # Decorator class
 class testclasscreator(object):
@@ -77,7 +87,6 @@ class TestBase(object):
         self.test_item['test_type_name'] = test_item_row.type.name
         self.test_id = self.test_item['id']
         self.reporting_rates = {}
-        self.verdict = "Pass"
 
         # Set in child class __init__ to allow exists_in_database_with_start_time to be called easily from child classes
         self.sql_summary_class = None
@@ -229,16 +238,16 @@ class TestBase(object):
                 else:
                     # Test class not found!
                     print("Test class not found for test " + str(test_id))
-                    result = "Error"
+                    result = TestStatus.ERROR
 
             dbresult = TestResult()
             dbresult.test_id = test_id
 
             if recalculate:
-                dbresult.result = result
+                dbresult.result = result.value
             else:
-                result = "Requires recalculate"
-                dbresult.result = result
+                result = TestStatus.RECALCULATE
+                dbresult.result = result.value
 
             dbresult.calculated = datetime.now()
             session.query(TestResult).filter(TestResult.test_id == test_id).delete()
@@ -247,7 +256,7 @@ class TestBase(object):
 
         except Exception as e:
             print(traceback.format_exc())
-            result = "Error"
+            result = TestStatus.ERROR
 
         if dbsession is None:
             session.close()
